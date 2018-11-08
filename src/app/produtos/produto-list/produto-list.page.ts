@@ -1,9 +1,9 @@
+import { DataBundleService } from './../../shared/services/data-bundle.service';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore';
 import { Observable } from 'rxjs'; 
-import { map } from 'rxjs/operators';
 import { AlertController } from '@ionic/angular';
+import { ProdutoService } from '../../shared/services/produto.service';
 
 @Component({
   selector: 'app-produto-list',
@@ -11,23 +11,17 @@ import { AlertController } from '@ionic/angular';
   styleUrls: ['./produto-list.page.scss'],
 })
 export class ProdutoListPage implements OnInit { 
-  private collection: AngularFirestoreCollection<any>; 
   public produtos: Observable<Produto[]>;
 
-  constructor(private _afs: AngularFirestore,
+  constructor(
+    private _storage: DataBundleService,
+    private _produtoService: ProdutoService,
     private _router: Router,
     private _alertController: AlertController) { 
   }
 
   ngOnInit() {  
-    this.collection = this._afs.collection<any>('produtos'); 
-    this.produtos = this.collection.snapshotChanges().pipe(
-      map(actions => actions.map(a => {
-        const data = a.payload.doc.data() as Produto;
-        const id = a.payload.doc.id;
-        return { id, ...data };
-      }))
-    );
+    this.produtos = this._produtoService.findAll();
   }
 
   add(){ 
@@ -35,7 +29,7 @@ export class ProdutoListPage implements OnInit {
   }
 
   edit(id: string){ 
-    alert(id);
+    this._storage.save(id);
   } 
 
   async remove(id: string){ 
@@ -49,7 +43,7 @@ export class ProdutoListPage implements OnInit {
         {
           text: 'Sim',
           handler: () => {
-            this._afs.doc(`produtos/${id}`).delete();
+            this._produtoService.remove(id);
           },
         },
       ],

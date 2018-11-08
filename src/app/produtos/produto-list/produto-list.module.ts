@@ -1,3 +1,4 @@
+import { ProdutoService } from './../../shared/services/produto.service';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -21,6 +22,7 @@ const routes: Routes = [
     IonicModule,
     RouterModule.forChild(routes)
   ],
-  declarations: [ProdutoListPage]
+  declarations: [ProdutoListPage],
+  providers: [ProdutoService]
 })
 export class ProdutoListPageModule {}
