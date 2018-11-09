@@ -1,20 +1,20 @@
-import { DataBundleService } from './../../shared/services/data-bundle.service';
-import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { Observable } from 'rxjs'; 
 import { AlertController } from '@ionic/angular';
-import { ProdutoService } from '../../shared/services/produto.service';
+import { Router } from '@angular/router';
+import { ProdutoService } from './shared/services/produto.service';
+import { Observable } from 'rxjs';
+import { Component, OnInit } from '@angular/core';
+import { Produto } from './shared/models/produto.model';
 
 @Component({
-  selector: 'app-produto-list',
-  templateUrl: './produto-list.page.html',
-  styleUrls: ['./produto-list.page.scss'],
+  selector: 'app-produtos',
+  templateUrl: './produtos.page.html',
+  styleUrls: ['./produtos.page.scss'],
 })
-export class ProdutoListPage implements OnInit { 
+export class ProdutosPage implements OnInit {
+
   public produtos: Observable<Produto[]>;
 
   constructor(
-    private _storage: DataBundleService,
     private _produtoService: ProdutoService,
     private _router: Router,
     private _alertController: AlertController) { 
@@ -24,12 +24,12 @@ export class ProdutoListPage implements OnInit {
     this.produtos = this._produtoService.findAll();
   }
 
-  add(){ 
-    this._router.navigate(['/produto-detail']);  
+  add(){  
+    this._router.navigateByUrl('produtos/add');
   }
 
-  edit(id: string){ 
-    this._storage.save(id);
+  edit(id: string){  
+    this._router.navigate(['produtos/edit', id]);
   } 
 
   async remove(id: string){ 

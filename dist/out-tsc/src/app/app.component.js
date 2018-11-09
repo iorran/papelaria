@@ -20,7 +20,7 @@ var AppComponent = /** @class */ (function () {
         this.statusBar = statusBar;
         this.appPages = [
             { title: 'Home', url: '/home', icon: 'home' },
-            { title: 'Produtos', url: '/produto-list', icon: 'pricetag' }
+            { title: 'Produtos', url: '/produtos', icon: 'pricetag' }
         ];
         this.initializeApp();
     }

@@ -11,8 +11,7 @@ var router_1 = require("@angular/router");
 var routes = [
     { path: '', redirectTo: 'home', pathMatch: 'full' },
     { path: 'home', loadChildren: './home/home.module#HomePageModule' },
-    { path: 'produto-list', loadChildren: './produtos/produto-list/produto-list.module#ProdutoListPageModule' },
-    { path: 'produto-detail', loadChildren: './produtos/produto-detail/produto-detail.module#ProdutoDetailPageModule' }
+    { path: 'produtos', loadChildren: './produtos/produtos.module#ProdutosPageModule' }
 ];
 var AppRoutingModule = /** @class */ (function () {
     function AppRoutingModule() {

@@ -18,6 +18,7 @@ var service_worker_1 = require("@angular/service-worker");
 var environment_1 = require("../environments/environment");
 var fire_1 = require("@angular/fire");
 var firestore_1 = require("@angular/fire/firestore");
+var storage_1 = require("@ionic/storage");
 var AppModule = /** @class */ (function () {
     function AppModule() {
     }
@@ -28,6 +29,7 @@ var AppModule = /** @class */ (function () {
             imports: [
                 platform_browser_1.BrowserModule,
                 angular_1.IonicModule.forRoot(),
+                storage_1.IonicStorageModule.forRoot(),
                 app_routing_module_1.AppRoutingModule,
                 service_worker_1.ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment_1.environment.production }),
                 fire_1.AngularFireModule.initializeApp(environment_1.environment.firebase, 'papelaria-jacarepagua'),

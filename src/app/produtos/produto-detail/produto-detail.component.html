@@ -1,0 +1,33 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="home"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Detalhes do Produto</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <ion-item>
+          <ion-input required type="text" placeholder="Nome" [(ngModel)]="produto.nome"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-input required type="text" placeholder="Marca" [(ngModel)]="produto.marca"></ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col col-lg-6>
+        <ion-item>
+          <ion-button expand="full" (click)="save()">Save</ion-button>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+
+
+</ion-content>
