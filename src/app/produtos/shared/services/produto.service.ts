@@ -27,16 +27,28 @@ export class ProdutoService {
    * A function to find one element by id, from a document firebase
    */
   findOne(id: string): Observable<Produto> {
-    return this.collection.doc<Produto>(id).snapshotChanges().pipe(
-      map(this.documentToDomainObject)
-    );
+    return this.collection.doc<Produto>(id).valueChanges();
   }
 
   /**
    * A function to remove one element by id, from a document firebase
    */
   remove(id: string) {
-    this._afs.doc(`produtos/${id}`).delete();
+    this.collection.doc<Produto>(id).delete();
+  }
+
+  /**
+   * A function to save one product
+   */
+  create(produto: Produto) {
+    this.collection.add(produto);
+  }
+
+  /**
+   * A function to update one product
+   */
+  update(id: string, produto: Produto) {
+    this.collection.doc<Produto>(id).update(produto);
   }
 
   documentsToDomainObject = _ => {

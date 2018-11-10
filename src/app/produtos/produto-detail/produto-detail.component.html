@@ -1,33 +1,38 @@
 <ion-header>
+
   <ion-toolbar>
     <ion-buttons slot="start">
-      <ion-back-button defaultHref="home"></ion-back-button>
+      <ion-back-button defaultHref="produtos"></ion-back-button>
     </ion-buttons>
     <ion-title>Detalhes do Produto</ion-title>
   </ion-toolbar>
+
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed" edge>
+    <ion-fab-button (click)="save()">
+      <ion-icon name="save"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
 </ion-header>
 
 <ion-content padding>
-  <ion-grid>
-    <ion-row>
-      <ion-col>
-        <ion-item>
-          <ion-input required type="text" placeholder="Nome" [(ngModel)]="produto.nome"></ion-input>
-        </ion-item>
-        <ion-item>
-          <ion-input required type="text" placeholder="Marca" [(ngModel)]="produto.marca"></ion-input>
-        </ion-item>
-      </ion-col>
-    </ion-row>
-    <ion-row>
-      <ion-col col-lg-6>
-        <ion-item>
-          <ion-button expand="full" (click)="save()">Save</ion-button>
-        </ion-item>
-      </ion-col>
-    </ion-row>
-  </ion-grid>
-
-
+  <form [formGroup]="form">
+    <ion-grid>
+      <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-input type="text" placeholder="Nome" formControlName="nome"></ion-input>
+          </ion-item>
+          <!-- <ion-item no-lines *ngIf="form.get('nome').hasError('required') && form.get('nome').touched">
+            <div class="error" *ngIf="form.get('nome').hasError('required') && form.get('nome').touched">
+              Campo obrigatório
+            </div>
+          </ion-item> -->
+          <ion-item>
+            <ion-input type="text" placeholder="Marca" formControlName="marca"></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </form>
 
 </ion-content>

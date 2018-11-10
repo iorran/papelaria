@@ -3,31 +3,22 @@
     <ion-buttons slot="start">
       <ion-back-button defaultHref="home"></ion-back-button>
     </ion-buttons>
-    <ion-buttons slot="primary">
-      <ion-button (click)="add()">
-        <ion-icon slot="icon-only" name="add"></ion-icon>
-      </ion-button>
-    </ion-buttons>
     <ion-title>Produtos</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content padding>
-  
+
   <ion-toolbar>
-    <ion-searchbar></ion-searchbar>
+    <ion-searchbar (ionInput)="search($event)" autocorrect="off" animated></ion-searchbar>
   </ion-toolbar>
 
   <ion-list>
     <ion-list-header>
       Produtos
     </ion-list-header>
-    <ion-item *ngFor="let p of produtos | async">
-      <ion-avatar slot="start">
-        <img src="">
-      </ion-avatar>
-
-      <ion-label> 
+    <ion-item *ngFor="let p of produtosFiltered">  
+      <ion-label>
         <h2>{{p.nome}}</h2>
         <p>{{p.marca}}</p>
       </ion-label>
@@ -39,5 +30,11 @@
         <ion-icon slot="icon-only" name="trash"></ion-icon>
       </ion-button>
     </ion-item>
-  </ion-list>
+  </ion-list> 
+
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+      <ion-fab-button (click)="add()">
+        <ion-icon name="add"></ion-icon>
+      </ion-fab-button>
+    </ion-fab>
 </ion-content>
