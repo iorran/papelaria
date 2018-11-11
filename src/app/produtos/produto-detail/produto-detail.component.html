@@ -20,15 +20,22 @@
       <ion-row>
         <ion-col>
           <ion-item>
-            <ion-input type="text" placeholder="Nome" formControlName="nome"></ion-input>
+            <ion-label position="floating">Nome</ion-label>
+            <ion-input type="text" formControlName="nome"></ion-input>
           </ion-item>
-          <!-- <ion-item no-lines *ngIf="form.get('nome').hasError('required') && form.get('nome').touched">
-            <div class="error" *ngIf="form.get('nome').hasError('required') && form.get('nome').touched">
-              Campo obrigatório
-            </div>
-          </ion-item> -->
+          <ion-text color="danger" *ngIf="nome.hasError('required') && (nome.touched || isSubmitted)">
+            <p>O campo é obrigatório</p>
+          </ion-text>
           <ion-item>
-            <ion-input type="text" placeholder="Marca" formControlName="marca"></ion-input>
+            <ion-label position="floating">Marca</ion-label>
+            <ion-input type="text" formControlName="marca"></ion-input>
+          </ion-item>
+          <ion-text color="danger" *ngIf="marca.hasError('required') && (marca.touched || isSubmitted)">
+            <p>O campo é obrigatório</p>
+          </ion-text>
+          <ion-item>
+            <ion-label position="floating">Código</ion-label>
+            <ion-input type="text" formControlName="codigo"></ion-input>
           </ion-item>
         </ion-col>
       </ion-row>

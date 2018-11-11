@@ -2,8 +2,7 @@ import { ProdutoService } from './../shared/services/produto.service';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { LoadingController } from '@ionic/angular';
-import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
-import { Produto } from '../shared/models/produto.model';
+import { FormGroup, Validators, FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-produto-detail',
@@ -13,6 +12,7 @@ import { Produto } from '../shared/models/produto.model';
 export class ProdutoDetailComponent implements OnInit {
   public form: FormGroup;
   public param: string;
+  public isSubmitted: boolean;
 
   constructor(private _activatedRoute: ActivatedRoute,
     private _router: Router,
@@ -22,7 +22,8 @@ export class ProdutoDetailComponent implements OnInit {
   ngOnInit() {
     this.form = new FormGroup({
       nome: new FormControl('', Validators.required),
-      marca: new FormControl('', Validators.required)
+      marca: new FormControl('', Validators.required),
+      codigo: new FormControl()
     });
 
     this.param = this._activatedRoute.snapshot.params['id'];
@@ -46,6 +47,7 @@ export class ProdutoDetailComponent implements OnInit {
   }
 
   async save() {
+    this.isSubmitted = true;
     const produto = this.form.value;
 
     if (this.form.valid) {
@@ -64,8 +66,16 @@ export class ProdutoDetailComponent implements OnInit {
       loading.dismiss();
 
       this.form.reset();
+      this.isSubmitted = false;
 
       this._router.navigateByUrl('produtos');
     }
+  }
+
+  get nome() {
+    return this.form.get('nome');
+  }
+  get marca() {
+    return this.form.get('marca');
   }
 }
