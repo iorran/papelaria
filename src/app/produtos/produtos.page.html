@@ -1,5 +1,5 @@
 <ion-header>
-  <ion-toolbar>
+  <ion-toolbar color="primary">
     <ion-buttons slot="start">
       <ion-back-button defaultHref="home"></ion-back-button>
     </ion-buttons>
@@ -10,14 +10,15 @@
 <ion-content padding>
 
   <ion-toolbar>
-    <ion-searchbar (ionInput)="search($event)" autocorrect="off" animated></ion-searchbar>
+    <ion-searchbar (ionInput)="search($event)" placeholder="Pesquisar" autocorrect="off" animated="true"
+      showCancelButton="true"></ion-searchbar>
   </ion-toolbar>
 
   <ion-list>
     <ion-list-header>
-      Produtos
+      {{produtosFiltered?.length}} registro(s).
     </ion-list-header>
-    <ion-item *ngFor="let p of produtosFiltered">  
+    <ion-item *ngFor="let p of produtosFiltered">
       <ion-label>
         <h2>{{p.nome}}</h2>
         <p>{{p.marca}}</p>
@@ -30,11 +31,16 @@
         <ion-icon slot="icon-only" name="trash"></ion-icon>
       </ion-button>
     </ion-item>
-  </ion-list> 
+    <ion-item *ngIf="!produtos || produtos.length == 0">
+      <ion-label text-center>Nenhum item cadastrado!
+        <ion-text color="tertiary" [routerDirection]="'produtos'" [routerLink]="'/produtos/add'">Cadastrar</ion-text>
+      </ion-label>
+    </ion-item>
+  </ion-list>
 
   <ion-fab vertical="bottom" horizontal="end" slot="fixed">
-      <ion-fab-button (click)="add()">
-        <ion-icon name="add"></ion-icon>
-      </ion-fab-button>
-    </ion-fab>
+    <ion-fab-button (click)="add()" color="secondary">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
 </ion-content>

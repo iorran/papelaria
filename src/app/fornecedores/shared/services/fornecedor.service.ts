@@ -11,7 +11,7 @@ export class FornecedorService {
   private collection: AngularFirestoreCollection<any>;
 
   constructor(private _afs: AngularFirestore) {
-    this.collection = this._afs.collection<Fornecedor[]>('fornecedors');
+    this.collection = this._afs.collection<Fornecedor[]>('fornecedores');
   }
 
   /**

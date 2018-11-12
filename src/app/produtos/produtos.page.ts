@@ -1,7 +1,6 @@
 import { AlertController, LoadingController } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { ProdutoService } from './shared/services/produto.service';
-import { Observable } from 'rxjs';
 import { Component, OnInit } from '@angular/core';
 import { Produto } from './shared/models/produto.model';
 

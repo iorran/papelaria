@@ -42,7 +42,7 @@ export class ProdutoDetailComponent implements OnInit {
 
     this._produtoService.findOne(this.param).subscribe(res => {
       loading.dismiss();
-      this.form.setValue(res);
+      this.form.patchValue(res);
     });
   }
 

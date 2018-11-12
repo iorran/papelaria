@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { FormGroup, Validators, FormControl } from '@angular/forms';
+import { LoadingController } from '@ionic/angular';
+import { FornecedorService } from './../shared/services/fornecedor.service';
 
 @Component({
   selector: 'app-fornecedor-detail',
@@ -6,10 +10,71 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./fornecedor-detail.component.scss']
 })
 export class FornecedorDetailComponent implements OnInit {
+  public form: FormGroup;
+  public param: string;
+  public isSubmitted: boolean;
 
-  constructor() { }
+  constructor(private _activatedRoute: ActivatedRoute,
+    private _router: Router,
+    private _fornecedorService: FornecedorService,
+    private _loadingController: LoadingController) { }
 
   ngOnInit() {
+    this.form = new FormGroup({
+      nome: new FormControl('', Validators.required),
+      cnpj: new FormControl()
+    });
+
+    this.param = this._activatedRoute.snapshot.params['id'];
+
+    if (this.param) {
+      this.loadFornecedores();
+    }
   }
 
+  private async loadFornecedores() {
+    const loading = await this._loadingController.create({
+      message: 'Carregando ...'
+    });
+
+    await loading.present();
+
+    this._fornecedorService.findOne(this.param).subscribe(res => {
+      loading.dismiss();
+      this.form.patchValue(res);
+    });
+  }
+
+  async save() {
+    this.isSubmitted = true;
+    const fornecedor = this.form.value;
+
+    if (this.form.valid) {
+      const loading = await this._loadingController.create({
+        message: 'Salvando ...'
+      });
+
+      await loading.present();
+
+      if (this.param) {
+        this._fornecedorService.update(this.param, fornecedor);
+      } else {
+        this._fornecedorService.create(fornecedor);
+      }
+
+      loading.dismiss();
+
+      this.form.reset();
+      this.isSubmitted = false;
+
+      this._router.navigateByUrl('fornecedores');
+    }
+  }
+
+  get nome() {
+    return this.form.get('nome');
+  }
+  get marca() {
+    return this.form.get('marca');
+  }
 }
