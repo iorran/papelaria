@@ -7,6 +7,7 @@ import { IonicModule } from '@ionic/angular';
 
 import { ProdutosPage } from './produtos.page';
 import { ProdutoDetailComponent } from './produto-detail/produto-detail.component';
+import { ProdutoListComponent } from './produto-list/produto-list.component';
 
 const routes: Routes = [
   { path: '', component: ProdutosPage },
@@ -18,10 +19,10 @@ const routes: Routes = [
   imports: [
     CommonModule,
     FormsModule,
+    ReactiveFormsModule,
     IonicModule,
-    RouterModule.forChild(routes),
-    ReactiveFormsModule
+    RouterModule.forChild(routes)
   ],
-  declarations: [ProdutosPage, ProdutoDetailComponent]
+  declarations: [ProdutosPage, ProdutoDetailComponent, ProdutoListComponent]
 })
-export class ProdutosPageModule {}
+export class ProdutosPageModule { }

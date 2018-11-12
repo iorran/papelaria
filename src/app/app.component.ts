@@ -12,7 +12,8 @@ export class AppComponent {
   public appPages = [
     { title: 'Home', url: '/home', icon: 'home' },
     { title: 'Produtos', url: '/produtos', icon: 'pricetag' },
-    { title: 'Fornecedores', url: '/fornecedores', icon: 'business' }
+    { title: 'Fornecedores', url: '/fornecedores', icon: 'business' },
+    { title: 'Orçamentos', url: '/orcamentos', icon: 'cart' }
   ];
 
   constructor(
