@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { OrcamentoProdutosComponent } from './orcamento-produtos.component';
+import { OrcamentoProdutoComponent } from './orcamento-produto.component';
 
-describe('OrcamentoProdutosComponent', () => {
-  let component: OrcamentoProdutosComponent;
-  let fixture: ComponentFixture<OrcamentoProdutosComponent>;
+describe('OrcamentoProdutoComponent', () => {
+  let component: OrcamentoProdutoComponent;
+  let fixture: ComponentFixture<OrcamentoProdutoComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ OrcamentoProdutosComponent ]
+      declarations: [ OrcamentoProdutoComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(OrcamentoProdutosComponent);
+    fixture = TestBed.createComponent(OrcamentoProdutoComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

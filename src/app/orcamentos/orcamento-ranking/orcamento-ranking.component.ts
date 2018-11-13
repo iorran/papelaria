@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+import { Fornecedor } from '../../fornecedores/shared/models/fornecedor.model';
 
 @Component({
   selector: 'app-orcamento-ranking',
@@ -6,6 +7,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./orcamento-ranking.component.scss']
 })
 export class OrcamentoRankingComponent implements OnInit {
+  @Input() fornecedor: Fornecedor;
 
   constructor() { }
 

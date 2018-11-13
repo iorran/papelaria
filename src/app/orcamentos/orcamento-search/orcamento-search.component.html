@@ -1,21 +1,35 @@
-<ion-grid>
-  <ion-row>
-    <ion-col text-center> 
-    </ion-col>
+<ion-card>
+  <ion-card-content>
+    <ion-grid>
+      <ion-row>
+        <ion-col text-center>
+          <ion-list>
+            <ion-list-header>Produtos</ion-list-header>
+            <ion-item>
+              <ion-label>Selecione</ion-label>
+              <ionic-selectable [(ngModel)]="produto" [items]="produtos" itemValueField="id" itemTextField="nome"
+                [canSearch]="true" [canClear]="true">
+              </ionic-selectable>
+            </ion-item>
+          </ion-list>
+        </ion-col>
 
-    <ion-col text-center>
-      <ion-list>
-        <ion-list-header>Produtos</ion-list-header>
-        <ion-item>
-          <ion-label>Selecione</ion-label>
-          <ion-select okText="Confirmar" cancelText="Cancelar">
-            <ion-select-option value="brown">Brown</ion-select-option>
-            <ion-select-option value="blonde">Blonde</ion-select-option>
-            <ion-select-option value="black">Black</ion-select-option>
-            <ion-select-option value="red">Red</ion-select-option>
-          </ion-select>
-        </ion-item>
-      </ion-list>
-    </ion-col>
-  </ion-row>
-</ion-grid>
+        <ion-col text-center>
+          <ion-list>
+            <ion-list-header>Fornecedores</ion-list-header>
+            <ion-item>
+              <ion-label>Selecione</ion-label>
+              <ionic-selectable [(ngModel)]="fornecedor" [items]="fornecedores" itemValueField="id" itemTextField="nome"
+                [canSearch]="true" [canClear]="true">
+              </ionic-selectable>
+            </ion-item>
+          </ion-list>
+        </ion-col>
+      </ion-row> 
+    </ion-grid>
+  </ion-card-content>
+</ion-card>
+
+<app-orcamento-ranking *ngIf="fornecedor && !produto" [fornecedor]="fornecedor"></app-orcamento-ranking>
+<app-orcamento-produto *ngIf="!fornecedor && produto" [produto]="produto"></app-orcamento-produto>
+<app-orcamento-detail *ngIf="fornecedor && produto" [fornecedor]="fornecedor" [produto]="produto"></app-orcamento-detail>

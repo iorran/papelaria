@@ -15,6 +15,8 @@ import { environment } from '../environments/environment';
 import { AngularFireModule } from '@angular/fire';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 
+import { IonicSelectableModule } from 'ionic-selectable';
+
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
@@ -24,7 +26,8 @@ import { AngularFirestoreModule } from '@angular/fire/firestore';
     AppRoutingModule,
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
     AngularFireModule.initializeApp(environment.firebase, 'papelaria-jacarepagua'),
-    AngularFirestoreModule
+    AngularFirestoreModule,
+    IonicSelectableModule
   ],
   providers: [
     StatusBar,
