@@ -6,4 +6,5 @@ export interface Orcamento {
     produto: Produto;
     fornecedor: Fornecedor;
     valor: number;
+    createdAt: Date;
 }

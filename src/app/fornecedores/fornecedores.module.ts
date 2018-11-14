@@ -7,6 +7,7 @@ import { IonicModule } from '@ionic/angular';
 
 import { FornecedoresPage } from './fornecedores.page';
 import { FornecedorDetailComponent } from './fornecedor-detail/fornecedor-detail.component';
+import { FornecedorListComponent } from './fornecedor-list/fornecedor-list.component';
 
 const routes: Routes = [
   { path: '', component: FornecedoresPage },
@@ -22,6 +23,6 @@ const routes: Routes = [
     IonicModule,
     RouterModule.forChild(routes)
   ],
-  declarations: [FornecedoresPage, FornecedorDetailComponent]
+  declarations: [FornecedoresPage, FornecedorDetailComponent, FornecedorListComponent]
 })
 export class FornecedoresPageModule { }

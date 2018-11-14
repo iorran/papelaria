@@ -19,7 +19,7 @@ export class OrcamentoService {
    */
   findAll(): Observable<Orcamento[]> {
     return this.collection.snapshotChanges().pipe(
-      map(actions => actions.map(this.documentsToDomainObject))
+      map(actions => actions.map(this.documentToDomainObject))
     );
   }
 
@@ -41,6 +41,7 @@ export class OrcamentoService {
    * A function to save one orcamento
    */
   create(orcamento: Orcamento) {
+    orcamento.createdAt = new Date();
     this.collection.add(orcamento);
   }
 
@@ -51,15 +52,24 @@ export class OrcamentoService {
     this.collection.doc<Orcamento>(id).update(orcamento);
   }
 
-  documentsToDomainObject = _ => {
-    const object = _.payload.doc.data();
-    object.id = _.payload.doc.id;
-    return object;
+  /**
+   * findByProdutoIdAndFornecedorId
+   */
+  public findByProdutoIdAndFornecedorId(produtoId: string, fornecedorId: string) {
+    return this._afs.collection<Orcamento>('orcamentos',
+      ref => ref
+        .where('produtoId', '==', produtoId)
+        .where('fornecedorId', '==', fornecedorId)
+        .orderBy('createdAt', 'desc')
+        .limit(1)
+      ).snapshotChanges().pipe(
+        map(actions => actions.map(this.documentToDomainObject))
+      );
   }
 
   documentToDomainObject = _ => {
-    const object = _.payload.data();
-    object.id = _.payload.id;
+    const object = _.payload.doc.data() as Orcamento;
+    object.id = _.payload.doc.id;
     return object;
   }
 

@@ -1,0 +1,27 @@
+<ion-toolbar>
+  <ion-searchbar (ionInput)="search($event)" placeholder="Pesquisar" autocorrect="off" animated="true" showCancelButton="true"></ion-searchbar>
+</ion-toolbar>
+
+<ion-list>
+  <ion-list-header>
+    {{fornecedoresFiltered?.length}} registro(s).
+  </ion-list-header>
+  <ion-item *ngFor="let f of fornecedoresFiltered">
+    <ion-label>
+      <h2>{{f.nome}}</h2>
+      <p>{{f.cnpj}}</p>
+    </ion-label>
+
+    <ion-button (click)="edit(f.id)" fill="clear" size="small" slot="end">
+      <ion-icon slot="icon-only" name="open"></ion-icon>
+    </ion-button>
+    <ion-button (click)="remove(f.id)" fill="clear" size="small" color="danger" slot="end">
+      <ion-icon slot="icon-only" name="trash"></ion-icon>
+    </ion-button>
+  </ion-item>
+  <ion-item *ngIf="!fornecedores || fornecedores.length == 0">
+    <ion-label text-center>Nenhum item cadastrado!
+      <ion-text color="tertiary" [routerDirection]="'fornecedores'" [routerLink]="'/fornecedores/add'">Cadastrar</ion-text>
+    </ion-label>
+  </ion-item>
+</ion-list>
