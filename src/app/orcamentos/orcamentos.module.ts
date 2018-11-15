@@ -11,6 +11,8 @@ import { OrcamentoRankingComponent } from './orcamento-ranking/orcamento-ranking
 import { OrcamentoDetailComponent } from './orcamento-detail/orcamento-detail.component';
 import { IonicSelectableModule } from 'ionic-selectable';
 import { OrcamentoProdutoComponent } from './orcamento-produto/orcamento-produto.component';
+import { ToastService } from '../shared/services/toast.service';
+import { TranslateModule } from '@ngx-translate/core';
 
 const routes: Routes = [
   {
@@ -26,10 +28,12 @@ const routes: Routes = [
     ReactiveFormsModule,
     IonicModule,
     RouterModule.forChild(routes),
-    IonicSelectableModule
+    IonicSelectableModule,
+    TranslateModule.forChild()
   ],
   declarations: [OrcamentosPage, OrcamentoSearchComponent, OrcamentoRankingComponent,
     OrcamentoDetailComponent,
-    OrcamentoProdutoComponent]
+    OrcamentoProdutoComponent],
+  providers: [ToastService]
 })
 export class OrcamentosPageModule { }

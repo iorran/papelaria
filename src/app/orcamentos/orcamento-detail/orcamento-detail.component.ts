@@ -5,6 +5,8 @@ import { LoadingController } from '@ionic/angular';
 import { OrcamentoService } from '../shared/services/orcamento.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Orcamento } from '../shared/models/orcamento.model';
+import { ToastService } from '../../shared/services/toast.service';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-orcamento-detail',
@@ -18,11 +20,12 @@ export class OrcamentoDetailComponent implements OnInit {
 
   public form: FormGroup;
   public isSubmitted: boolean;
-  public createdAt: any;
 
   constructor(
     private _orcamentoService: OrcamentoService,
-    private _loadingController: LoadingController
+    private _loadingController: LoadingController,
+    private _toastService: ToastService,
+    private _translate: TranslateService
   ) { }
 
   ngOnInit() {
@@ -36,8 +39,9 @@ export class OrcamentoDetailComponent implements OnInit {
   }
 
   async loadOrcamento() {
+
     const loading = await this._loadingController.create({
-      message: 'Carregando ...'
+      message: this._translate.instant('geral.carregando')
     });
 
     await loading.present();
@@ -46,9 +50,7 @@ export class OrcamentoDetailComponent implements OnInit {
       .findByProdutoIdAndFornecedorId(this.produto.id, this.fornecedor.id)
       .subscribe((data) => {
         loading.dismiss();
-        this.createdAt = data[0].createdAt;
         this.form.patchValue(data[0]);
-        // this.form.get('valor').setValue(data[0].valor);
       });
   }
 
@@ -58,14 +60,17 @@ export class OrcamentoDetailComponent implements OnInit {
 
     if (this.form.valid) {
       const loading = await this._loadingController.create({
-        message: 'Salvando ...'
+        message: this._translate.instant('geral.salvando')
       });
 
       await loading.present();
 
-      this._orcamentoService.create(orcamento);
-
-      loading.dismiss();
+      this._orcamentoService.create(orcamento).then(() => loading.dismiss())
+        .then((res) => {
+          this._toastService.presentToast('Orçamento registrado.', 'success');
+        }).catch((res) => {
+          this._toastService.presentToast(res, 'error');
+        });
 
       this.isSubmitted = false;
     }

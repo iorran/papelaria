@@ -34,7 +34,7 @@ export class OrcamentoService {
    * A function to remove one element by id, from a document firebase
    */
   remove(id: string) {
-    this.collection.doc<Orcamento>(id).delete();
+    return this.collection.doc<Orcamento>(id).delete();
   }
 
   /**
@@ -42,14 +42,14 @@ export class OrcamentoService {
    */
   create(orcamento: Orcamento) {
     orcamento.createdAt = new Date();
-    this.collection.add(orcamento);
+    return this.collection.add(orcamento);
   }
 
   /**
    * A function to update one orcamento
    */
   update(id: string, orcamento: Orcamento) {
-    this.collection.doc<Orcamento>(id).update(orcamento);
+    return this.collection.doc<Orcamento>(id).update(orcamento);
   }
 
   /**

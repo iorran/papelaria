@@ -1,0 +1,9 @@
+{
+    "geral" : {
+        "carregando" : "Carregando ...",
+        "salvando" : "Salvando ..."
+    },
+    "orcamento" : {
+        "criado" : "Orçamento criado"
+    }
+}
