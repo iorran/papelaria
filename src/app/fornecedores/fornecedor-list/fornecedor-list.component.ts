@@ -49,10 +49,6 @@ export class FornecedorListComponent implements OnInit {
     });
   }
 
-  add() {
-    this._router.navigateByUrl('fornecedores/add');
-  }
-
   edit(id: string) {
     this._router.navigate(['fornecedores/edit', id]);
   }

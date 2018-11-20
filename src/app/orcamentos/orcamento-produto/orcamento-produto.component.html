@@ -1,3 +1,12 @@
-<p>
-  orcamento-produto works!
-</p>
+<ion-virtual-scroll [items]="items">
+    <ion-item *virtualItem="let item">
+        <ion-card> 
+            <ion-card-header>
+                <ion-card-title>Hello World</ion-card-title>
+            </ion-card-header>
+            <ion-card-content>
+                <p>The content for this card</p>
+            </ion-card-content>
+        </ion-card> 
+    </ion-item>
+  </ion-virtual-scroll>

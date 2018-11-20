@@ -1,30 +1,31 @@
-<ion-toolbar>
-  <ion-searchbar (ionInput)="search($event)" placeholder="Pesquisar" autocorrect="off" animated="true" showCancelButton="true"
-    autocomplete="on"></ion-searchbar>
-</ion-toolbar>
+<ion-searchbar (ionInput)="search($event)" placeholder="Pesquisar" autocorrect="off" animated="true" showCancelButton="true"
+  autocomplete="on"></ion-searchbar>
+<ion-card>
+  <ion-card-content>
+    <ion-list>
+      <ion-list-header>
+        {{produtosFiltered?.length}} registro(s).
+      </ion-list-header>
+      <ion-virtual-scroll [items]="produtosFiltered">
+        <ion-item *virtualItem="let p">
+          <ion-label>
+            <h2>{{p.nome}}</h2>
+            <p>{{p.marca}}</p>
+          </ion-label>
 
-<ion-list>
-  <ion-list-header>
-    {{produtosFiltered?.length}} registro(s).
-  </ion-list-header>
-  <ion-virtual-scroll [items]="produtosFiltered">
-    <ion-item *virtualItem="let p">
-      <ion-label>
-        <h2>{{p.nome}}</h2>
-        <p>{{p.marca}}</p>
-      </ion-label>
-
-      <ion-button (click)="edit(p.id)" fill="clear" size="small" slot="end">
-        <ion-icon slot="icon-only" name="open"></ion-icon>
-      </ion-button>
-      <ion-button (click)="remove(p.id)" fill="clear" size="small" color="danger" slot="end">
-        <ion-icon slot="icon-only" name="trash"></ion-icon>
-      </ion-button>
-    </ion-item>
-  </ion-virtual-scroll>
-  <ion-item *ngIf="!produtos || produtos.length == 0">
-    <ion-label text-center>Nenhum item cadastrado!
-      <ion-text color="tertiary" [routerDirection]="'produtos'" [routerLink]="'/produtos/add'">Cadastrar</ion-text>
-    </ion-label>
-  </ion-item>
-</ion-list>
+          <ion-button (click)="edit(p.id)" fill="clear" size="small" slot="end">
+            <ion-icon slot="icon-only" name="open"></ion-icon>
+          </ion-button>
+          <ion-button (click)="remove(p.id)" fill="clear" size="small" color="danger" slot="end">
+            <ion-icon slot="icon-only" name="trash"></ion-icon>
+          </ion-button>
+        </ion-item>
+      </ion-virtual-scroll>
+      <ion-item *ngIf="!produtos || produtos.length == 0">
+        <ion-label text-center>Nenhum item cadastrado!
+          <ion-text color="tertiary" [routerDirection]="'produtos'" [routerLink]="'/produtos/add'">Cadastrar</ion-text>
+        </ion-label>
+      </ion-item>
+    </ion-list>
+  </ion-card-content>
+</ion-card>

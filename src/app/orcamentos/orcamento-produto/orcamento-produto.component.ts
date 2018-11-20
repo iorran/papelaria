@@ -1,6 +1,7 @@
+import { Fornecedor } from './../../fornecedores/shared/models/fornecedor.model';
+import { TranslateService } from '@ngx-translate/core';
+import { OrcamentoService } from './../shared/services/orcamento.service';
 import { Component, OnInit, Input } from '@angular/core';
-import { Produto } from '../../produtos/shared/models/produto.model';
-import { ProdutoService } from '../../produtos/shared/services/produto.service';
 import { LoadingController } from '@ionic/angular';
 
 @Component({
@@ -9,11 +10,12 @@ import { LoadingController } from '@ionic/angular';
   styleUrls: ['./orcamento-produto.component.scss']
 })
 export class OrcamentoProdutoComponent implements OnInit {
-  @Input() produto: Produto;
+  @Input() fornecedor: Fornecedor;
 
   constructor(
-    private _produtoService: ProdutoService,
-    private _loadingController: LoadingController
+    private _orcamentoService: OrcamentoService,
+    private _loadingController: LoadingController,
+    private _translate: TranslateService
   ) { }
 
   ngOnInit() {

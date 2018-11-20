@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, OnChanges } from '@angular/core';
 import { Produto } from '../../produtos/shared/models/produto.model';
 import { Fornecedor } from '../../fornecedores/shared/models/fornecedor.model';
 import { LoadingController } from '@ionic/angular';
@@ -13,7 +13,7 @@ import { TranslateService } from '@ngx-translate/core';
   templateUrl: './orcamento-detail.component.html',
   styleUrls: ['./orcamento-detail.component.scss']
 })
-export class OrcamentoDetailComponent implements OnInit {
+export class OrcamentoDetailComponent implements OnInit, OnChanges {
 
   @Input() fornecedor: Fornecedor;
   @Input() produto: Produto;
@@ -38,6 +38,10 @@ export class OrcamentoDetailComponent implements OnInit {
     this.loadOrcamento();
   }
 
+  ngOnChanges() {
+    this.loadOrcamento();
+  }
+
   async loadOrcamento() {
 
     const loading = await this._loadingController.create({
@@ -50,7 +54,9 @@ export class OrcamentoDetailComponent implements OnInit {
       .findByProdutoIdAndFornecedorId(this.produto.id, this.fornecedor.id)
       .subscribe((data) => {
         loading.dismiss();
-        this.form.patchValue(data[0]);
+        this.form.get('fornecedorId').setValue(this.fornecedor.id);
+        this.form.get('produtoId').setValue(this.produto.id);
+        this.valor.setValue(data[0] ? data[0].valor : null);
       });
   }
 

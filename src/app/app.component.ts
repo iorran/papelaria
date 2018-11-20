@@ -38,13 +38,13 @@ export class AppComponent {
 
   private _initTranslate() {
     // Set the default language for translation strings, and the current language.
-    this._translate.setDefaultLang('pt-BR');
+    this._translate.setDefaultLang('pt');
 
 
     if (this._translate.getBrowserLang() !== undefined) {
       this._translate.use(this._translate.getBrowserLang());
     } else {
-      this._translate.use('pt-BR'); // Set your language here
+      this._translate.use('pt'); // Set your language here
     }
   }
 }

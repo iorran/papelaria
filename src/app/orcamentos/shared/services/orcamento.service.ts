@@ -1,3 +1,4 @@
+import { Fornecedor } from './../../../fornecedores/shared/models/fornecedor.model';
 import { Orcamento } from './../models/orcamento.model';
 import { Injectable } from '@angular/core';
 import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore';
@@ -55,7 +56,7 @@ export class OrcamentoService {
   /**
    * findByProdutoIdAndFornecedorId
    */
-  public findByProdutoIdAndFornecedorId(produtoId: string, fornecedorId: string) {
+  public findByProdutoIdAndFornecedorId(produtoId: string, fornecedorId: string): Observable<Orcamento[]> {
     return this._afs.collection<Orcamento>('orcamentos',
       ref => ref
         .where('produtoId', '==', produtoId)
@@ -67,9 +68,33 @@ export class OrcamentoService {
       );
   }
 
+  /**
+   * findByProdutoId
+   */
+  public findByProdutoId(produtoId: string): Observable<Orcamento[]> {
+    return this._afs.collection<Orcamento>('orcamentos',
+      ref => ref
+        .where('produtoId', '==', produtoId)
+        .orderBy('createdAt', 'desc')
+        .orderBy('valor', 'asc')
+        .orderBy('fornecedorId', 'desc')
+      ).snapshotChanges().pipe(
+        map(actions => actions.map(this.documentToDomainObject))
+      );
+  }
+
   documentToDomainObject = _ => {
-    const object = _.payload.doc.data() as Orcamento;
+    const object = _.payload.doc.data();
+    console.log(object);
     object.id = _.payload.doc.id;
+    this._afs.doc<Fornecedor>(`fornecedores/${object.fornecedorId}`).valueChanges().subscribe(f => {
+      f.id = object.fornecedorId;
+      object.fornecedor = f;
+    });
+    this._afs.doc<Fornecedor>(`produtos/${object.produtoId}`).valueChanges().subscribe(p => {
+      p.id = object.produtoId;
+      object.produto = p;
+    });
     return object;
   }
 

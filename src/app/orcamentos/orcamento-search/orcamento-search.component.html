@@ -30,6 +30,6 @@
   </ion-card-content>
 </ion-card>
 
-<app-orcamento-ranking *ngIf="fornecedor && !produto" [fornecedor]="fornecedor"></app-orcamento-ranking>
-<app-orcamento-produto *ngIf="!fornecedor && produto" [produto]="produto"></app-orcamento-produto>
+<app-orcamento-ranking *ngIf="!fornecedor && produto" [produto]="produto"></app-orcamento-ranking>
+<app-orcamento-produto *ngIf="fornecedor && !produto" [fornecedor]="fornecedor"></app-orcamento-produto>
 <app-orcamento-detail *ngIf="fornecedor && produto" [fornecedor]="fornecedor" [produto]="produto"></app-orcamento-detail>
