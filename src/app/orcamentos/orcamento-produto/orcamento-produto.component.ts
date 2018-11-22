@@ -43,12 +43,10 @@ export class OrcamentoProdutoComponent implements OnInit, OnChanges {
   }
 
   private groupByLastPrices(orcamentos: any[]) {
-    let last: string;
     this.orcamentos = [];
 
     orcamentos.forEach(orcamento => {
-      if (orcamento.produto.id !== last) {
-        last = orcamento.produto.id;
+      if (!this.orcamentos.find(o => o.produto.id === orcamento.produto.id)) {
         this.orcamentos.push(orcamento);
       }
     });

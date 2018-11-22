@@ -45,13 +45,10 @@ export class OrcamentoRankingComponent implements OnInit, OnChanges {
   }
 
   private getOnlyMaxResults(orcamentos: any[]) {
-    let last: string;
     this.orcamentos = [];
 
     orcamentos.forEach(orcamento => {
-      console.log(orcamento.fornecedor.id, last, orcamento.fornecedor.id !== last);
-      if (orcamento.fornecedor.id !== last) {
-        last = orcamento.fornecedor.id;
+      if (!this.orcamentos.find(o => o.fornecedor.id === orcamento.fornecedor.id)) {
         this.orcamentos.push(orcamento);
       }
     });
