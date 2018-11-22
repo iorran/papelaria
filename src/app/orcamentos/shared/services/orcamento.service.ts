@@ -59,8 +59,8 @@ export class OrcamentoService {
   public findByProdutoIdAndFornecedorId(produtoId: string, fornecedorId: string): Observable<Orcamento[]> {
     return this._afs.collection<Orcamento>('orcamentos',
       ref => ref
-        .where('produtoId', '==', produtoId)
-        .where('fornecedorId', '==', fornecedorId)
+        .where('produto.id', '==', produtoId)
+        .where('fornecedor.id', '==', fornecedorId)
         .orderBy('createdAt', 'desc')
         .limit(1)
       ).snapshotChanges().pipe(
@@ -74,27 +74,32 @@ export class OrcamentoService {
   public findByProdutoId(produtoId: string): Observable<Orcamento[]> {
     return this._afs.collection<Orcamento>('orcamentos',
       ref => ref
-        .where('produtoId', '==', produtoId)
+        .where('produto.id', '==', produtoId)
         .orderBy('createdAt', 'desc')
         .orderBy('valor', 'asc')
-        .orderBy('fornecedorId', 'desc')
+        .orderBy('fornecedor.id', 'desc')
+      ).snapshotChanges().pipe(
+        map(actions => actions.map(this.documentToDomainObject))
+      );
+  }
+
+  /**
+   * findByFornecedorId
+   */
+  public findByFornecedorId(fornecedorId: string): Observable<Orcamento[]> {
+    return this._afs.collection<Orcamento>('orcamentos',
+      ref => ref
+        .where('fornecedor.id', '==', fornecedorId)
+        .orderBy('createdAt', 'desc')
+        .orderBy('produto.nome', 'asc')
       ).snapshotChanges().pipe(
         map(actions => actions.map(this.documentToDomainObject))
       );
   }
 
   documentToDomainObject = _ => {
-    const object = _.payload.doc.data();
-    console.log(object);
+    const object = _.payload.doc.data() as Orcamento;
     object.id = _.payload.doc.id;
-    this._afs.doc<Fornecedor>(`fornecedores/${object.fornecedorId}`).valueChanges().subscribe(f => {
-      f.id = object.fornecedorId;
-      object.fornecedor = f;
-    });
-    this._afs.doc<Fornecedor>(`produtos/${object.produtoId}`).valueChanges().subscribe(p => {
-      p.id = object.produtoId;
-      object.produto = p;
-    });
     return object;
   }
 

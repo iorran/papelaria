@@ -49,8 +49,9 @@ export class OrcamentoRankingComponent implements OnInit, OnChanges {
     this.orcamentos = [];
 
     orcamentos.forEach(orcamento => {
-      if (orcamento.fornecedorId !== last) {
-        last = orcamento.fornecedorId;
+      console.log(orcamento.fornecedor.id, last, orcamento.fornecedor.id !== last);
+      if (orcamento.fornecedor.id !== last) {
+        last = orcamento.fornecedor.id;
         this.orcamentos.push(orcamento);
       }
     });

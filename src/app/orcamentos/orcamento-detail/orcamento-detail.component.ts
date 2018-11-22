@@ -31,8 +31,8 @@ export class OrcamentoDetailComponent implements OnInit, OnChanges {
   ngOnInit() {
     this.form = new FormGroup({
       valor: new FormControl('', Validators.required),
-      produtoId: new FormControl(this.produto.id, Validators.required),
-      fornecedorId: new FormControl(this.fornecedor.id, Validators.required)
+      produto: new FormControl(this.produto, Validators.required),
+      fornecedor: new FormControl(this.fornecedor, Validators.required)
     });
 
     this.loadOrcamento();
@@ -54,8 +54,8 @@ export class OrcamentoDetailComponent implements OnInit, OnChanges {
       .findByProdutoIdAndFornecedorId(this.produto.id, this.fornecedor.id)
       .subscribe((data) => {
         loading.dismiss();
-        this.form.get('fornecedorId').setValue(this.fornecedor.id);
-        this.form.get('produtoId').setValue(this.produto.id);
+        this.form.get('fornecedor').setValue(this.fornecedor);
+        this.form.get('produto').setValue(this.produto);
         this.valor.setValue(data[0] ? data[0].valor : null);
       });
   }
