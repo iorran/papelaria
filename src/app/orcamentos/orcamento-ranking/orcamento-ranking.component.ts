@@ -44,6 +44,15 @@ export class OrcamentoRankingComponent implements OnInit, OnChanges {
       });
   }
 
+  /**
+   * Este método deverá ser removido.
+   *
+   * Caso o sistema salve os orçamentos, mantendo o hitórico dos valores no mesmo documento(tabela),
+   * faz sentido pegar apenas os últimos preços lançados por cada fornecedor.
+   *
+   * Lembrando que os orçamentos são ordenados por: @createdAt, @produtoNome, @fornecedorId
+   * @param orcamentos
+   */
   private getOnlyMaxResults(orcamentos: any[]) {
     this.orcamentos = [];
 

@@ -20,6 +20,7 @@ export class OrcamentoDetailComponent implements OnInit, OnChanges {
 
   public form: FormGroup;
   public isSubmitted: boolean;
+  public orcamentoId: string;
 
   constructor(
     private _orcamentoService: OrcamentoService,
@@ -54,9 +55,10 @@ export class OrcamentoDetailComponent implements OnInit, OnChanges {
       .findByProdutoIdAndFornecedorId(this.produto.id, this.fornecedor.id)
       .subscribe((data) => {
         loading.dismiss();
+        this.orcamentoId = data[0] ? data[0].id : undefined;
         this.form.get('fornecedor').setValue(this.fornecedor);
         this.form.get('produto').setValue(this.produto);
-        this.valor.setValue(data[0] ? data[0].valor : null);
+        this.valor.setValue(this.orcamentoId ? data[0].valor : null);
       });
   }
 
@@ -71,15 +73,35 @@ export class OrcamentoDetailComponent implements OnInit, OnChanges {
 
       await loading.present();
 
-      this._orcamentoService.create(orcamento).then(() => loading.dismiss())
-        .then((res) => {
-          this._toastService.presentToast('Orçamento registrado.', 'success');
-        }).catch((res) => {
-          this._toastService.presentToast(res, 'error');
-        });
+      if (this.orcamentoId) {
+        await this.update(orcamento);
+      } else {
+        await this.create(orcamento);
+      }
+
+      await loading.dismiss();
 
       this.isSubmitted = false;
     }
+  }
+
+  update(orcamento: Orcamento): any {
+    console.log('editando: ', this.orcamentoId);
+    this._orcamentoService.update(this.orcamentoId, orcamento)
+      .then((res) => {
+        this._toastService.presentToast('Orçamento atualizado.', 'success');
+      }).catch((res) => {
+        this._toastService.presentToast(res, 'error');
+      });
+  }
+
+  create(orcamento: Orcamento): any {
+    this._orcamentoService.create(orcamento)
+      .then((res) => {
+        this._toastService.presentToast('Orçamento registrado.', 'success');
+      }).catch((res) => {
+        this._toastService.presentToast(res, 'error');
+      });
   }
 
   get valor() {
