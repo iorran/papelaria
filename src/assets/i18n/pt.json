@@ -1,9 +1,66 @@
 {
     "geral" : {
+        "novo" : "novo",
+        "selecione": "Selecione o registro",
         "carregando" : "Carregando ...",
-        "salvando" : "Salvando ..."
+        "salvando" : "Salvando ...",
+        "removendo" : "Deseja remover o registro?",
+        "total_registro" : "{{param}} registro(s)",
+        "registro_vazio" : "Nenhum registro localizado",
+        "registro_criado" : "Registro criado com sucesso",
+        "registro_atualizado" : "Registro atualizado com sucesso",
+        "registro_removido" : "Registro removido com sucesso",
+        "error" : "Algo inesperado ocorreu! Tente novamente.",
+        "btn": {
+            "nao": "Não",
+            "sim": "Sim"
+        }
     },
-    "orcamento" : {
-        "criado" : "Orçamento criado"
+    "home": {
+        "titulo" : "Início"
+    },
+    "produtos": {
+        "titulo" : "Produtos",
+        "titulo.detalhes" : "Detalhes do Produto",
+        "form": {
+            "nome" : "Nome",
+            "marca": "Marca",
+            "codigo": "Código"
+        },
+        "validacao": {
+            "nome": {
+                "obrigatorio": "O campo nome é obrigatório"
+            },
+            "marca": {
+                "obrigatorio": "O campo marca é obrigatório"
+            }
+        }
+    },
+    "fornecedores": {
+        "titulo" : "Fornecedores",
+        "titulo.detalhes" : "Detalhes do Fornecedor",
+        "form": {
+            "nome" : "Nome",
+            "cnpj": "CNPJ"
+        },
+        "validacao": {
+            "nome": {
+                "obrigatorio": "O campo nome é obrigatório"
+            }
+        }
+    },
+    "orcamentos" : {
+        "titulo" : "Orçamentos",
+        "novo": "Novo Orçamento",
+        "lista_produtos": "Produtos com orçamento",
+        "lista_fornecedores": "Melhor preço para o produto: {{param}}",
+        "form": {
+            "valor" : "Valor"
+        },
+        "validacao": {
+            "valor": {
+                "obrigatorio": "O campo valor é obrigatório"
+            }
+        }
     }
 }

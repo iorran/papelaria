@@ -3,7 +3,7 @@
     <ion-buttons slot="start">
       <ion-back-button defaultHref="produtos"></ion-back-button>
     </ion-buttons>
-    <ion-title>Detalhes do Produto</ion-title>
+    <ion-title>{{ 'fornecedores.titulo.detalhes' | translate }}</ion-title>
   </ion-toolbar>
 
   <ion-fab vertical="bottom" horizontal="end" slot="fixed" edge>
@@ -21,14 +21,14 @@
           <ion-row>
             <ion-col>
               <ion-item>
-                <ion-label position="floating">Nome</ion-label>
+                <ion-label position="floating">{{ 'fornecedores.form.nome' | translate }}</ion-label>
                 <ion-input type="text" formControlName="nome"></ion-input>
               </ion-item>
               <ion-text color="danger" *ngIf="nome.hasError('required') && (nome.touched || isSubmitted)">
-                <p>O campo é obrigatório</p>
+                <p>{{'fornecedores.validacao.nome.obrigatorio'| translate }}</p>
               </ion-text>
               <ion-item>
-                <ion-label position="floating">CNPJ</ion-label>
+                <ion-label position="floating">{{ 'fornecedores.form.cnpj' | translate }}</ion-label>
                 <ion-input type="text" formControlName="cnpj"></ion-input>
               </ion-item>
             </ion-col>

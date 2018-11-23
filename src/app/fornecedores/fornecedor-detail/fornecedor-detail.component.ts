@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { FormGroup, Validators, FormControl } from '@angular/forms';
 import { LoadingController } from '@ionic/angular';
 import { FornecedorService } from './../shared/services/fornecedor.service';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-fornecedor-detail',
@@ -17,6 +18,7 @@ export class FornecedorDetailComponent implements OnInit {
   constructor(private _activatedRoute: ActivatedRoute,
     private _router: Router,
     private _fornecedorService: FornecedorService,
+    private _translate: TranslateService,
     private _loadingController: LoadingController) { }
 
   ngOnInit() {
@@ -34,7 +36,7 @@ export class FornecedorDetailComponent implements OnInit {
 
   private async loadFornecedores() {
     const loading = await this._loadingController.create({
-      message: 'Carregando ...'
+      message: this._translate.instant('geral.carregando')
     });
 
     await loading.present();
@@ -51,7 +53,7 @@ export class FornecedorDetailComponent implements OnInit {
 
     if (this.form.valid) {
       const loading = await this._loadingController.create({
-        message: 'Salvando ...'
+        message: this._translate.instant('geral.salvando')
       });
 
       await loading.present();

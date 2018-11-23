@@ -3,6 +3,7 @@ import { AlertController, LoadingController } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { Produto } from '../shared/models/produto.model';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-produto-list',
@@ -17,6 +18,7 @@ export class ProdutoListComponent implements OnInit {
     private _produtoService: ProdutoService,
     private _router: Router,
     private _alertController: AlertController,
+    private _translate: TranslateService,
     private _loadingController: LoadingController) {
   }
 
@@ -26,7 +28,7 @@ export class ProdutoListComponent implements OnInit {
 
   private async loadProdutos() {
     const loading = await this._loadingController.create({
-      message: 'Carregando ...'
+      message: this._translate.instant('geral.carregando')
     });
 
     await loading.present();
@@ -54,14 +56,14 @@ export class ProdutoListComponent implements OnInit {
 
   async remove(id: string) {
     const alert = await this._alertController.create({
-      message: 'Deseja realmente deletar o produto?',
+      message:  this._translate.instant('geral.removendo'),
       buttons: [
         {
-          text: 'Não',
+          text:  this._translate.instant('geral.btn.nao'),
           role: 'cancel'
         },
         {
-          text: 'Sim',
+          text:  this._translate.instant('geral.btn.sim'),
           handler: () => {
             this._produtoService.remove(id);
           },

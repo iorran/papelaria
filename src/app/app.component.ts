@@ -11,10 +11,10 @@ import { TranslateService } from '@ngx-translate/core';
 })
 export class AppComponent {
   public appPages = [
-    { title: 'Home', url: '/home', icon: 'home' },
-    { title: 'Produtos', url: '/produtos', icon: 'pricetag' },
-    { title: 'Fornecedores', url: '/fornecedores', icon: 'business' },
-    { title: 'Orçamentos', url: '/orcamentos', icon: 'cart' }
+    { title: 'home.titulo', url: '/home', icon: 'home' },
+    { title: 'produtos.titulo', url: '/produtos', icon: 'pricetag' },
+    { title: 'fornecedores.titulo', url: '/fornecedores', icon: 'business' },
+    { title: 'orcamentos.titulo', url: '/orcamentos', icon: 'cart' }
   ];
 
   constructor(

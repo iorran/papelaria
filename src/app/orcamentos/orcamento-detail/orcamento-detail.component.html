@@ -6,16 +6,16 @@
   </ion-fab>
   <ion-card-content>
     <ion-list>
-      <ion-list-header>Novo orçamento</ion-list-header>
+      <ion-list-header>{{ 'orcamentos.novo' | translate }}</ion-list-header>
       <form [formGroup]="form">
         <ion-input type="hidden" formControlName="fornecedor"></ion-input>
         <ion-input type="hidden" formControlName="produto"></ion-input>
         <ion-item>
-          <ion-label position="stacked">Valor</ion-label>
+          <ion-label position="stacked">{{ 'orcamentos.form.valor' | translate }}</ion-label>
           <ion-input type="text" formControlName="valor"></ion-input>
         </ion-item> 
         <ion-text color="danger" *ngIf="valor.hasError('required') && (valor.touched || isSubmitted)">
-          <p>O campo é obrigatório</p>
+          <p>{{ 'orcamentos.validacao.valor.obrigatorio' | translate }}</p>
         </ion-text>
       </form>
     </ion-list>

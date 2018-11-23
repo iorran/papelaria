@@ -86,21 +86,20 @@ export class OrcamentoDetailComponent implements OnInit, OnChanges {
   }
 
   update(orcamento: Orcamento): any {
-    console.log('editando: ', this.orcamentoId);
     this._orcamentoService.update(this.orcamentoId, orcamento)
       .then((res) => {
-        this._toastService.presentToast('Orçamento atualizado.', 'success');
+        this._toastService.presentToast(this._translate.instant('geral.registro_atualizado'), 'success');
       }).catch((res) => {
-        this._toastService.presentToast(res, 'error');
+        this._toastService.presentToast(this._translate.instant('geral.error'), 'error');
       });
   }
 
   create(orcamento: Orcamento): any {
     this._orcamentoService.create(orcamento)
       .then((res) => {
-        this._toastService.presentToast('Orçamento registrado.', 'success');
+        this._toastService.presentToast(this._translate.instant('geral.registro_criado'), 'success');
       }).catch((res) => {
-        this._toastService.presentToast(res, 'error');
+        this._toastService.presentToast(this._translate.instant('geral.error'), 'error');
       });
   }
 

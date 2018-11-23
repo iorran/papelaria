@@ -4,6 +4,7 @@ import { ProdutoService } from '../../produtos/shared/services/produto.service';
 import { FornecedorService } from '../../fornecedores/shared/services/fornecedor.service';
 import { LoadingController } from '@ionic/angular';
 import { Fornecedor } from '../../fornecedores/shared/models/fornecedor.model';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-orcamento-search',
@@ -19,6 +20,7 @@ export class OrcamentoSearchComponent implements OnInit {
   constructor(
     private _produtoService: ProdutoService,
     private _fornecedorService: FornecedorService,
+    private _translate: TranslateService,
     private _loadingController: LoadingController
   ) { }
 
@@ -29,7 +31,7 @@ export class OrcamentoSearchComponent implements OnInit {
 
   private async loadProdutos() {
     const loading = await this._loadingController.create({
-      message: 'Carregando ...'
+      message: this._translate.instant('geral.carregando')
     });
 
     await loading.present();
@@ -42,7 +44,7 @@ export class OrcamentoSearchComponent implements OnInit {
 
   private async loadFornecedores() {
     const loading = await this._loadingController.create({
-      message: 'Carregando ...'
+      message: this._translate.instant('geral.carregando')
     });
 
     await loading.present();

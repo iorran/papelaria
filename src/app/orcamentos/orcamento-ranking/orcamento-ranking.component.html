@@ -2,7 +2,7 @@
   <ion-list>
 
     <ion-list-header>
-      <ion-label>Melhores preços</ion-label>
+      <ion-label>{{'orcamentos.lista_fornecedores' | translate : {param: produto.nome} }}</ion-label>
     </ion-list-header>
 
     <ion-item *ngFor="let o of orcamentos; let i=index;">
@@ -14,8 +14,7 @@
       <ion-badge *ngIf="i == 0" color="success" slot="end">Melhor preço</ion-badge>
     </ion-item>
       <ion-item *ngIf="!orcamentos || orcamentos.length == 0">
-        <ion-label text-center>Não existe orçamento cadastro.
-        </ion-label>
+        <ion-label text-center>{{'registro_vazio' | translate}}</ion-label>
       </ion-item>
   </ion-list>
 </ion-card>

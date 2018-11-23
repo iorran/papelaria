@@ -8,6 +8,7 @@ import { IonicModule } from '@ionic/angular';
 import { FornecedoresPage } from './fornecedores.page';
 import { FornecedorDetailComponent } from './fornecedor-detail/fornecedor-detail.component';
 import { FornecedorListComponent } from './fornecedor-list/fornecedor-list.component';
+import { TranslateModule } from '@ngx-translate/core';
 
 const routes: Routes = [
   { path: '', component: FornecedoresPage },
@@ -21,7 +22,8 @@ const routes: Routes = [
     FormsModule,
     ReactiveFormsModule,
     IonicModule,
-    RouterModule.forChild(routes)
+    RouterModule.forChild(routes),
+    TranslateModule.forChild()
   ],
   declarations: [FornecedoresPage, FornecedorDetailComponent, FornecedorListComponent]
 })

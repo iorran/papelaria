@@ -8,6 +8,7 @@ import { IonicModule } from '@ionic/angular';
 import { ProdutosPage } from './produtos.page';
 import { ProdutoDetailComponent } from './produto-detail/produto-detail.component';
 import { ProdutoListComponent } from './produto-list/produto-list.component';
+import { TranslateModule } from '@ngx-translate/core';
 
 const routes: Routes = [
   { path: '', component: ProdutosPage },
@@ -21,7 +22,8 @@ const routes: Routes = [
     FormsModule,
     ReactiveFormsModule,
     IonicModule,
-    RouterModule.forChild(routes)
+    RouterModule.forChild(routes),
+    TranslateModule.forChild()
   ],
   declarations: [ProdutosPage, ProdutoDetailComponent, ProdutoListComponent]
 })

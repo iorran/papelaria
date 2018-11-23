@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { LoadingController } from '@ionic/angular';
 import { FormGroup, Validators, FormControl } from '@angular/forms';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-produto-detail',
@@ -17,6 +18,7 @@ export class ProdutoDetailComponent implements OnInit {
   constructor(private _activatedRoute: ActivatedRoute,
     private _router: Router,
     private _produtoService: ProdutoService,
+    private _translate: TranslateService,
     private _loadingController: LoadingController) { }
 
   ngOnInit() {
@@ -35,7 +37,7 @@ export class ProdutoDetailComponent implements OnInit {
 
   private async loadProduto() {
     const loading = await this._loadingController.create({
-      message: 'Carregando ...'
+      message: this._translate.instant('geral.carregando')
     });
 
     await loading.present();
@@ -52,7 +54,7 @@ export class ProdutoDetailComponent implements OnInit {
 
     if (this.form.valid) {
       const loading = await this._loadingController.create({
-        message: 'Salvando ...'
+        message: this._translate.instant('geral.salvando')
       });
 
       await loading.present();

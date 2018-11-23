@@ -4,9 +4,9 @@
       <ion-row>
         <ion-col text-center>
           <ion-list>
-            <ion-list-header>Produtos</ion-list-header>
+            <ion-list-header>{{ 'produtos.titulo' | translate }}</ion-list-header>
             <ion-item>
-              <ion-label>Selecione</ion-label>
+              <ion-label>{{ 'geral.selecione' | translate }}</ion-label>
               <ionic-selectable [(ngModel)]="produto" [items]="produtos" itemTextField="nome"
                 [canSearch]="true" [canClear]="true">
               </ionic-selectable>
@@ -15,9 +15,9 @@
         </ion-col> 
         <ion-col text-center>
           <ion-list>
-            <ion-list-header>Fornecedores</ion-list-header>
+            <ion-list-header>{{ 'fornecedores.titulo' | translate }}</ion-list-header>
             <ion-item>
-              <ion-label>Selecione</ion-label>
+              <ion-label>{{ 'geral.selecione' | translate }}</ion-label>
               <ionic-selectable [(ngModel)]="fornecedor" [items]="fornecedores" itemTextField="nome"
                 [canSearch]="true" [canClear]="true">
               </ionic-selectable>

@@ -3,6 +3,7 @@ import { Fornecedor } from '../shared/models/fornecedor.model';
 import { FornecedorService } from '../shared/services/fornecedor.service';
 import { Router } from '@angular/router';
 import { AlertController, LoadingController } from '@ionic/angular';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-fornecedor-list',
@@ -18,6 +19,7 @@ export class FornecedorListComponent implements OnInit {
     private _fornecedorService: FornecedorService,
     private _router: Router,
     private _alertController: AlertController,
+    private _translate: TranslateService,
     private _loadingController: LoadingController) {
   }
 
@@ -27,7 +29,7 @@ export class FornecedorListComponent implements OnInit {
 
   private async loadFornecedors() {
     const loading = await this._loadingController.create({
-      message: 'Carregando ...'
+      message: this._translate.instant('geral.carregando')
     });
 
     await loading.present();
@@ -55,14 +57,14 @@ export class FornecedorListComponent implements OnInit {
 
   async remove(id: string) {
     const alert = await this._alertController.create({
-      message: 'Deseja realmente deletar o fornecedor?',
+      message: this._translate.instant('geral.removendo'),
       buttons: [
         {
-          text: 'Não',
+          text: this._translate.instant('geral.btn.nao'),
           role: 'cancel'
         },
         {
-          text: 'Sim',
+          text: this._translate.instant('geral.btn.sim'),
           handler: () => {
             this._fornecedorService.remove(id);
           },

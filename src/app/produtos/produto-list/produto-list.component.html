@@ -4,7 +4,7 @@
   <ion-card-content>
     <ion-list>
       <ion-list-header>
-        {{produtosFiltered?.length}} registro(s).
+        {{ 'geral.total_registro' | translate:{'param':produtosFiltered?.length} }}
       </ion-list-header>
       <ion-virtual-scroll [items]="produtosFiltered">
         <ion-item *virtualItem="let p">
@@ -22,8 +22,8 @@
         </ion-item>
       </ion-virtual-scroll>
       <ion-item *ngIf="!produtos || produtos.length == 0">
-        <ion-label text-center>Nenhum item cadastrado!
-          <ion-text color="tertiary" [routerDirection]="'produtos'" [routerLink]="'/produtos/add'">Cadastrar</ion-text>
+        <ion-label text-center>{{'geral.registro_vazio' | translate}}
+          <ion-text color="tertiary" [routerDirection]="'produtos'" [routerLink]="'/produtos/add'">{{ 'geral.novo' | translate }}</ion-text>
         </ion-label>
       </ion-item>
     </ion-list>
