@@ -5,7 +5,7 @@ import { LoadingController } from '@ionic/angular';
 import { OrcamentoService } from '../shared/services/orcamento.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Orcamento } from '../shared/models/orcamento.model';
-import { ToastService } from '../../shared/services/toast.service';
+import { ToastService } from '../../core/services/toast.service';
 import { TranslateService } from '@ngx-translate/core';
 
 @Component({
@@ -57,8 +57,8 @@ export class OrcamentoDetailComponent implements OnInit, OnChanges {
       .findByProdutoIdAndFornecedorId(this.produto.id, this.fornecedor.id)
       .subscribe((data) => {
         loading.dismiss();
-        this.form.get('fornecedor').setValue(data[0].fornecedor);
-        this.form.get('produto').setValue(data[0].produto);
+        this.form.get('fornecedor').setValue(this.fornecedor);
+        this.form.get('produto').setValue(this.produto);
         this.form.get('quantidade').setValue(data[0].quantidade);
         this.form.get('condicao').setValue(data[0].condicao);
         this.valor.setValue(data[0].id ? data[0].valor : null);
