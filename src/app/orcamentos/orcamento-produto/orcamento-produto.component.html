@@ -1,18 +1,19 @@
 <ion-card>
-    <ion-list>
-  
-      <ion-list-header>
-        <ion-label>{{'orcamentos.lista_produtos' | translate}}</ion-label>
-      </ion-list-header> 
-      <ion-item *ngFor="let o of orcamentos; let i=index;">
-        <ion-label>
-          <h1>{{o?.produto?.nome}}</h1>
-          <h3>{{o?.valor}} R$</h3>
-          <p>condições de pagamento</p>
-        </ion-label> 
-      </ion-item>
-      <ion-item *ngIf="!orcamentos || orcamentos.length == 0">
-        <ion-label text-center>{{'registro_vazio' | translate}}</ion-label>
-      </ion-item>
-    </ion-list>
-  </ion-card>
+  <ion-list>
+
+    <ion-list-header>
+      <ion-label>{{'orcamentos.lista_produtos' | translate}}</ion-label>
+    </ion-list-header>
+    <ion-item *ngFor="let o of orcamentos; let i=index;">
+      <ion-label text-wrap>
+        <h1>{{o?.valor | currency: moeda}}</h1>
+        <h3>{{o?.fornecedor?.nome}}</h3>
+        <p>{{o?.quantidade}}</p>
+        <p>{{o?.condicao}}</p>
+      </ion-label>
+    </ion-item>
+    <ion-item *ngIf="!orcamentos || orcamentos.length == 0">
+      <ion-label text-center>{{'geral.registro_vazio' | translate}}</ion-label>
+    </ion-item>
+  </ion-list>
+</ion-card>

@@ -16,12 +16,16 @@ export class OrcamentoRankingComponent implements OnInit, OnChanges {
 
   public orcamentos: Orcamento[];
 
+  /** // TODO: constant */
+  public moeda: string;
+
   constructor(
     private _orcamentoService: OrcamentoService,
     private _loadingController: LoadingController,
     private _translate: TranslateService) { }
 
   ngOnInit() {
+    this.moeda = this._translate.instant('geral.moeda');
   }
 
   ngOnChanges() {

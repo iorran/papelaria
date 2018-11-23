@@ -14,7 +14,8 @@
         "btn": {
             "nao": "Não",
             "sim": "Sim"
-        }
+        },
+        "moeda" : "BRL"
     },
     "home": {
         "titulo" : "Início"
@@ -54,13 +55,20 @@
         "novo": "Novo Orçamento",
         "lista_produtos": "Produtos com orçamento",
         "lista_fornecedores": "Melhor preço para o produto: {{param}}",
+        "sugeridos": "Preços sugeridos:",
         "form": {
-            "valor" : "Valor"
+            "valor" : "Valor",
+            "quantidade" : "Quantidade",
+            "condicao" : "Condições de pagamento"
         },
         "validacao": {
             "valor": {
                 "obrigatorio": "O campo valor é obrigatório"
+            },
+            "quantidade": {
+                "obrigatorio": "O campo quantidade é obrigatório"
             }
-        }
+        },
+        "melhor": "Melhor preço"
     }
 }

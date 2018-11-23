@@ -12,11 +12,22 @@
         <ion-input type="hidden" formControlName="produto"></ion-input>
         <ion-item>
           <ion-label position="stacked">{{ 'orcamentos.form.valor' | translate }}</ion-label>
-          <ion-input type="text" formControlName="valor"></ion-input>
+          <ion-input type="number" formControlName="valor"></ion-input>
         </ion-item> 
         <ion-text color="danger" *ngIf="valor.hasError('required') && (valor.touched || isSubmitted)">
           <p>{{ 'orcamentos.validacao.valor.obrigatorio' | translate }}</p>
         </ion-text>
+        <ion-item>
+          <ion-label position="stacked">{{ 'orcamentos.form.quantidade' | translate }}</ion-label>
+          <ion-input type="number" formControlName="quantidade"></ion-input>
+        </ion-item> 
+        <ion-text color="danger" *ngIf="quantidade.hasError('required') && (quantidade.touched || isSubmitted)">
+          <p>{{ 'orcamentos.validacao.quantidade.obrigatorio' | translate }}</p>
+        </ion-text> 
+        <ion-item>
+            <ion-label position="stacked">{{ 'orcamentos.form.condicao' | translate }}</ion-label>
+            <ion-input type="text" formControlName="condicao"></ion-input>
+          </ion-item> 
       </form>
     </ion-list>
   </ion-card-content>

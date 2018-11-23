@@ -5,16 +5,27 @@
       <ion-label>{{'orcamentos.lista_fornecedores' | translate : {param: produto.nome} }}</ion-label>
     </ion-list-header>
 
-    <ion-item *ngFor="let o of orcamentos; let i=index;">
-      <ion-label>
-        <h1>{{o?.valor}} R$</h1>
-        <h3>{{o?.fornecedor?.nome}}</h3>
-        <p>condições de pagamento</p>
-      </ion-label>
-      <ion-badge *ngIf="i == 0" color="success" slot="end">Melhor preço</ion-badge>
-    </ion-item>
-      <ion-item *ngIf="!orcamentos || orcamentos.length == 0">
-        <ion-label text-center>{{'registro_vazio' | translate}}</ion-label>
+    <div *ngFor="let o of orcamentos; let i=index;">
+      <ion-item>
+        <ion-label text-wrap>
+          <h1>{{o?.valor | currency: moeda}}</h1>
+          <h3>{{o?.fornecedor?.nome}}</h3>
+          <p>{{o?.quantidade}}</p>
+          <p>{{o?.condicao}}</p>
+        </ion-label>
+        <ion-badge *ngIf="i == 0" color="success" slot="end">{{'orcamentos.melhor' | translate }}</ion-badge>
       </ion-item>
+      <ion-item-divider>
+        <ion-label text-wrap> 
+          {{'orcamentos.sugeridos' | translate}}
+          <ion-badge color="light">90% {{o?.valor * 1.90 | currency: moeda}} </ion-badge> |
+          <ion-badge color="light">100% {{o?.valor * 2 | currency: moeda}}</ion-badge>
+        </ion-label>
+      </ion-item-divider>
+    </div>
+
+    <ion-item *ngIf="!orcamentos || orcamentos.length == 0">
+      <ion-label text-center>{{'geral.registro_vazio' | translate}}</ion-label>
+    </ion-item>
   </ion-list>
 </ion-card>

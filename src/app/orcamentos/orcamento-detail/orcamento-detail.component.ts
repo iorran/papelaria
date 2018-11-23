@@ -33,7 +33,9 @@ export class OrcamentoDetailComponent implements OnInit, OnChanges {
     this.form = new FormGroup({
       valor: new FormControl('', Validators.required),
       produto: new FormControl(this.produto, Validators.required),
-      fornecedor: new FormControl(this.fornecedor, Validators.required)
+      fornecedor: new FormControl(this.fornecedor, Validators.required),
+      quantidade: new FormControl('', Validators.required),
+      condicao: new FormControl()
     });
 
     this.loadOrcamento();
@@ -55,10 +57,11 @@ export class OrcamentoDetailComponent implements OnInit, OnChanges {
       .findByProdutoIdAndFornecedorId(this.produto.id, this.fornecedor.id)
       .subscribe((data) => {
         loading.dismiss();
-        this.orcamentoId = data[0] ? data[0].id : undefined;
-        this.form.get('fornecedor').setValue(this.fornecedor);
-        this.form.get('produto').setValue(this.produto);
-        this.valor.setValue(this.orcamentoId ? data[0].valor : null);
+        this.form.get('fornecedor').setValue(data[0].fornecedor);
+        this.form.get('produto').setValue(data[0].produto);
+        this.form.get('quantidade').setValue(data[0].quantidade);
+        this.form.get('condicao').setValue(data[0].condicao);
+        this.valor.setValue(data[0].id ? data[0].valor : null);
       });
   }
 
@@ -105,5 +108,9 @@ export class OrcamentoDetailComponent implements OnInit, OnChanges {
 
   get valor() {
     return this.form.get('valor');
+  }
+
+  get quantidade() {
+    return this.form.get('quantidade');
   }
 }
