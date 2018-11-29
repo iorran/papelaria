@@ -1,3 +1,5 @@
+import { AuthGuard } from './guards/auth.guard';
+import { AuthService } from './services/auth.service';
 import { NgModule, Optional, SkipSelf } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
@@ -42,7 +44,9 @@ export function createTranslateLoader(http: HttpClient) {
   providers: [
     StatusBar,
     SplashScreen,
-    ToastService
+    ToastService,
+    AuthService,
+    AuthGuard
   ],
   exports: [TranslateModule]
 })

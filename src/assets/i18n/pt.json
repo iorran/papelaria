@@ -18,7 +18,28 @@
         "moeda" : "BRL"
     },
     "home": {
-        "titulo" : "Início"
+        "titulo" : "Início",
+        "btn": {
+            "sair": "Sair"
+        }
+    },
+    "login": {
+        "titulo" : "Entrada", 
+        "form": {
+            "email" : "Email",
+            "password": "Senha"
+        },
+        "validacao": {
+            "email": {
+                "obrigatorio": "O campo email é obrigatório"
+            },
+            "password": {
+                "obrigatorio": "O campo senha é obrigatório"
+            }
+        },
+        "btn": {
+            "logar": "Entrar"
+        }
     },
     "produtos": {
         "titulo" : "Produtos",

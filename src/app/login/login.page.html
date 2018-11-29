@@ -6,4 +6,33 @@
 
 <ion-content padding>
 
+  <ion-card>
+    <ion-card-content>
+      <form [formGroup]="form">
+        <ion-grid>
+          <ion-row>
+            <ion-col>
+              <ion-item>
+                <ion-label position="floating">{{ 'login.form.email' | translate }}</ion-label>
+                <ion-input type="text" formControlName="email"></ion-input>
+              </ion-item>
+              <ion-text color="danger" *ngIf="email.hasError('required') && (email.touched || isSubmitted)">
+                <p>{{'login.validacao.email.obrigatorio'| translate }}</p>
+              </ion-text>
+              <ion-item>
+                <ion-label position="floating">{{ 'login.form.password' | translate }}</ion-label>
+                <ion-input type="password" formControlName="password"></ion-input>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>
+                <ion-button (click)="signInWithEmail()">{{ 'login.btn.logar' | translate }}</ion-button>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </form>
+    </ion-card-content>
+  </ion-card>
+
 </ion-content>

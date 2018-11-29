@@ -1,3 +1,4 @@
+import { AuthService } from './core/services/auth.service';
 import { Component } from '@angular/core';
 
 import { Platform } from '@ionic/angular';
@@ -10,6 +11,8 @@ import { TranslateService } from '@ngx-translate/core';
   templateUrl: 'app.component.html'
 })
 export class AppComponent {
+  public isLoggedIn: Boolean;
+
   public appPages = [
     { title: 'home.titulo', url: '/home', icon: 'home' },
     { title: 'produtos.titulo', url: '/produtos', icon: 'pricetag' },
@@ -21,8 +24,10 @@ export class AppComponent {
     private platform: Platform,
     private splashScreen: SplashScreen,
     private statusBar: StatusBar,
-    private _translate: TranslateService
+    private _translate: TranslateService,
+    private _authService: AuthService
   ) {
+    this.isLoggedIn = this._authService.isLoggedIn();
     this.initializeApp();
   }
 
