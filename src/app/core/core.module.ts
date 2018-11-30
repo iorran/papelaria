@@ -13,12 +13,12 @@ import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 
 import { AngularFirestoreModule } from '@angular/fire/firestore';
-import { AngularFireModule } from '@angular/fire';
 import { AngularFireAuthModule } from 'angularfire2/auth';
 
 import { throwIfAlreadyLoaded } from './module-import-guard';
 import { ToastService } from './../core/services/toast.service';
 import { environment } from './../../environments/environment';
+import { CacheService } from './services/cache.service';
 
 // AoT requires an exported function for factories
 export function createTranslateLoader(http: HttpClient) {
@@ -37,7 +37,6 @@ export function createTranslateLoader(http: HttpClient) {
         deps: [HttpClient]
       }
     }),
-    AngularFireModule.initializeApp(environment.firebase, 'papelaria-jacarepagua'),
     AngularFirestoreModule,
     AngularFireAuthModule
   ],
@@ -46,6 +45,7 @@ export function createTranslateLoader(http: HttpClient) {
     SplashScreen,
     ToastService,
     AuthService,
+    CacheService,
     AuthGuard
   ],
   exports: [TranslateModule]

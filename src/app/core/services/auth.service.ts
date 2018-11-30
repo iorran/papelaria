@@ -1,67 +1,70 @@
+import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
 import { Injectable } from '@angular/core';
-import { Router } from '@angular/router';
+
 import { AngularFireAuth } from 'angularfire2/auth';
-import * as firebase from 'firebase/app';
-import { Observable } from 'rxjs';
+
+import { Observable, of } from 'rxjs';
+import { switchMap, tap, map, take } from 'rxjs/operators';
+
+import { Usuario } from '../../shared/models/usuario.model';
 
 @Injectable()
 export class AuthService {
-  private user: Observable<firebase.User>;
-  private userDetails: firebase.User = null;
+  user: Observable<Usuario>;
 
-  constructor(private _firebaseAuth: AngularFireAuth, private router: Router) {
-    this.user = _firebaseAuth.authState;
-
-    this.user.subscribe(
-      (user) => {
-        if (user) {
-          this.userDetails = user;
-        } else {
-          this.userDetails = null;
-        }
-      }
+  constructor(
+    private _firebaseAuth: AngularFireAuth,
+    private _angularFirestore: AngularFirestore
+  ) {
+    this.user = this._firebaseAuth.authState.pipe(
+      switchMap(
+        user => user ? this.findUser(user) : of(null)
+      )
     );
-  }
-
-  signInWithTwitter() {
-    return this._firebaseAuth.auth.signInWithPopup(
-      new firebase.auth.TwitterAuthProvider()
-    );
-  }
-
-  signInWithFacebook() {
-    return this._firebaseAuth.auth.signInWithPopup(
-      new firebase.auth.FacebookAuthProvider()
-    );
-  }
-
-  signInWithGoogle() {
-    return this._firebaseAuth.auth.signInWithPopup(
-      new firebase.auth.GoogleAuthProvider()
-    );
-  }
-
-  signInWithGithub() {
-    return this._firebaseAuth.auth.signInWithPopup(
-      new firebase.auth.GithubAuthProvider()
-    );
-  }
-
-  signInRegular(email, password) {
-    const credential = firebase.auth.EmailAuthProvider.credential(email, password);
-    console.log(credential);
-    return this._firebaseAuth.auth.signInWithEmailAndPassword(email, password);
-  }
-
-  isLoggedIn() {
-    if (this.userDetails == null) {
-      return false;
-    } else {
-      return true;
-    }
   }
 
   logout() {
     return this._firebaseAuth.auth.signOut();
+  }
+
+  signInRegular(email, password) {
+    return this._firebaseAuth.auth
+      .signInWithEmailAndPassword(email, password)
+      .then(credential => {
+        // this.notify.update('Welcome back!', 'success');
+        return this.updateUserData(credential.user);
+      })
+      .catch(error => console.log(error));
+  }
+
+  isLoggedIn() {
+    return this.user.pipe(
+      take(1),
+      map(user => !!user),
+      tap(loggedIn => {
+        if (!loggedIn) {
+          console.log('access denied');
+        }
+        return loggedIn;
+      })
+    );
+  }
+
+  findUser(user: firebase.User) {
+    return this._angularFirestore.doc<Usuario>(`users/${user.uid}`).valueChanges();
+  }
+
+  updateUserData(user) {
+    const userRef: AngularFirestoreDocument<any> = this._angularFirestore.doc(`users/${user.uid}`);
+
+    const data: Usuario = {
+      uid: user.uid,
+      email: user.email,
+      displayName: user.displayName,
+      photoURL: user.photoURL
+    };
+
+    return userRef.set(data, { merge: true });
+
   }
 }

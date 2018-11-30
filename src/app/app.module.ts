@@ -5,9 +5,12 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
+import { IonicStorageModule } from '@ionic/storage';
 
 import { AppComponent } from './app.component';
 
+import { AngularFireModule } from '@angular/fire';
+import { environment } from './../environments/environment';
 
 @NgModule({
   declarations: [AppComponent],
@@ -16,7 +19,9 @@ import { AppComponent } from './app.component';
     BrowserModule,
     AppRoutingModule,
     IonicModule.forRoot(),
-    CoreModule
+    CoreModule,
+    IonicStorageModule.forRoot(),
+    AngularFireModule.initializeApp(environment.firebase, 'papelaria-jacarepagua')
   ],
   providers: [
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }

@@ -16,10 +16,6 @@ export class LoginPage implements OnInit {
     private _router: Router) { }
 
   ngOnInit() {
-    if (this._authService.isLoggedIn()) {
-      this._router.navigate(['/home']);
-    }
-
     this.form = new FormGroup({
       email: new FormControl('iorranpt@gmail.com', Validators.required),
       password: new FormControl('123456', Validators.required)

@@ -1,4 +1,3 @@
-import { AuthService } from './core/services/auth.service';
 import { Component } from '@angular/core';
 
 import { Platform } from '@ionic/angular';
@@ -11,7 +10,6 @@ import { TranslateService } from '@ngx-translate/core';
   templateUrl: 'app.component.html'
 })
 export class AppComponent {
-  public isLoggedIn: Boolean;
 
   public appPages = [
     { title: 'home.titulo', url: '/home', icon: 'home' },
@@ -21,27 +19,24 @@ export class AppComponent {
   ];
 
   constructor(
-    private platform: Platform,
-    private splashScreen: SplashScreen,
-    private statusBar: StatusBar,
-    private _translate: TranslateService,
-    private _authService: AuthService
+    private _platform: Platform,
+    private _splashScreen: SplashScreen,
+    private _statusBar: StatusBar,
+    private _translate: TranslateService
   ) {
-    this.isLoggedIn = this._authService.isLoggedIn();
     this.initializeApp();
   }
 
   initializeApp() {
+    this.initTranslate();
 
-    this._initTranslate();
-
-    this.platform.ready().then(() => {
-      this.statusBar.styleDefault();
-      this.splashScreen.hide();
+    this._platform.ready().then(() => {
+      this._statusBar.styleDefault();
+      this._splashScreen.hide();
     });
   }
 
-  private _initTranslate() {
+  private initTranslate() {
     // Set the default language for translation strings, and the current language.
     this._translate.setDefaultLang('pt');
     if (this._translate.getBrowserLang() !== undefined) {
