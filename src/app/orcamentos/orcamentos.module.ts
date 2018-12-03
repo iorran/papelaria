@@ -1,3 +1,4 @@
+import { IonicSelectableModule } from 'ionic-selectable';
 import { SharedModule } from './../shared/shared.module';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
@@ -17,7 +18,8 @@ const routes: Routes = [
 @NgModule({
   imports: [
     SharedModule,
-    RouterModule.forChild(routes)
+    RouterModule.forChild(routes),
+    IonicSelectableModule
   ],
   declarations: [OrcamentosPage, OrcamentoSearchComponent, OrcamentoRankingComponent,
     OrcamentoDetailComponent,
