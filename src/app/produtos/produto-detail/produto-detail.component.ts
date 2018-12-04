@@ -4,6 +4,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { LoadingController } from '@ionic/angular';
 import { FormGroup, Validators, FormControl } from '@angular/forms';
 import { TranslateService } from '@ngx-translate/core';
+import { Observable } from 'rxjs';
+import { MessageService } from '../../core/services/message.service';
 
 @Component({
   selector: 'app-produto-detail',
@@ -15,11 +17,14 @@ export class ProdutoDetailComponent implements OnInit {
   public param: string;
   public isSubmitted: boolean;
 
-  constructor(private _activatedRoute: ActivatedRoute,
+  constructor(
+    private _activatedRoute: ActivatedRoute,
     private _router: Router,
     private _produtoService: ProdutoService,
     private _translate: TranslateService,
-    private _loadingController: LoadingController) { }
+    private _messageService: MessageService,
+    private _loadingController: LoadingController
+  ) { }
 
   ngOnInit() {
     this.form = new FormGroup({
@@ -39,7 +44,6 @@ export class ProdutoDetailComponent implements OnInit {
     const loading = await this._loadingController.create({
       message: this._translate.instant('geral.carregando')
     });
-
     await loading.present();
 
     this._produtoService.findOne(this.param).subscribe(res => {
@@ -54,24 +58,31 @@ export class ProdutoDetailComponent implements OnInit {
 
     if (this.form.valid) {
       const loading = await this._loadingController.create({
-        message: this._translate.instant('geral.salvando')
+        message: this._translate.instant('geral.carregando')
       });
 
       await loading.present();
 
       if (this.param) {
-        this._produtoService.update(this.param, produto);
+        await this.subscribeToSave(this._produtoService.update(this.param, produto));
       } else {
-        this._produtoService.create(produto);
+        await this.subscribeToSave(this._produtoService.create(produto));
       }
 
       loading.dismiss();
-
       this.form.reset();
       this.isSubmitted = false;
 
       this._router.navigateByUrl('produtos');
     }
+  }
+  private subscribeToSave(result: Observable<any>) {
+    result.subscribe(data => {
+      this._messageService.presentToast(this._translate.instant('geral.registro_salvo'), 'success');
+    },
+      err => {
+        this._messageService.presentToast(this._translate.instant('geral.error'), 'error');
+      });
   }
 
   get nome() {

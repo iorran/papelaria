@@ -1,4 +1,3 @@
-import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
 import { Injectable } from '@angular/core';
 
 import { AngularFireAuth } from 'angularfire2/auth';
@@ -6,7 +5,8 @@ import { AngularFireAuth } from 'angularfire2/auth';
 import { Observable, of } from 'rxjs';
 import { switchMap, tap, map, take } from 'rxjs/operators';
 
-import { Usuario } from '../../shared/models/usuario.model';
+import { UserService } from './user.service';
+import { Usuario } from '../models/usuario.model';
 
 @Injectable()
 export class AuthService {
@@ -14,25 +14,28 @@ export class AuthService {
 
   constructor(
     private _firebaseAuth: AngularFireAuth,
-    private _angularFirestore: AngularFirestore
+    private _userService: UserService
   ) {
     this.user = this._firebaseAuth.authState.pipe(
       switchMap(
-        user => user ? this.findUser(user) : of(null)
+        user => user ? this._userService.findOne(user.uid) : of(null)
       )
     );
   }
-
   logout() {
     return this._firebaseAuth.auth.signOut();
   }
-
   signInRegular(email, password) {
     return this._firebaseAuth.auth
       .signInWithEmailAndPassword(email, password)
       .then(credential => {
-        // this.notify.update('Welcome back!', 'success');
-        return this.updateUserData(credential.user);
+        const usuario: Usuario = {
+          uid: credential.user.uid,
+          email: credential.user.email,
+          displayName: credential.user.displayName,
+          photoURL: credential.user.photoURL
+        };
+        return this._userService.update(usuario.uid, usuario);
       })
       .catch(error => console.log(error));
   }
@@ -48,23 +51,5 @@ export class AuthService {
         return loggedIn;
       })
     );
-  }
-
-  findUser(user: firebase.User) {
-    return this._angularFirestore.doc<Usuario>(`users/${user.uid}`).valueChanges();
-  }
-
-  updateUserData(user) {
-    const userRef: AngularFirestoreDocument<any> = this._angularFirestore.doc(`users/${user.uid}`);
-
-    const data: Usuario = {
-      uid: user.uid,
-      email: user.email,
-      displayName: user.displayName,
-      photoURL: user.photoURL
-    };
-
-    return userRef.set(data, { merge: true });
-
   }
 }

@@ -1,3 +1,4 @@
+import { MessageService } from './services/message.service';
 import { NgModule, Optional, SkipSelf } from '@angular/core';
 
 import { ServiceWorkerModule } from '@angular/service-worker';
@@ -9,11 +10,11 @@ import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { AngularFireAuthModule } from 'angularfire2/auth';
 
 import { throwIfAlreadyLoaded } from './module-import-guard';
-import { ToastService } from './../core/services/toast.service';
 import { environment } from './../../environments/environment';
 import { CacheService } from './services/cache.service';
 import { AuthGuard } from './guards/auth.guard';
 import { AuthService } from './services/auth.service';
+import { UserService } from './services/user.service';
 
 @NgModule({
   imports: [
@@ -25,10 +26,11 @@ import { AuthService } from './services/auth.service';
   providers: [
     StatusBar,
     SplashScreen,
-    ToastService,
+    MessageService,
     AuthService,
     CacheService,
-    AuthGuard
+    AuthGuard,
+    UserService
   ],
   declarations: []
 })

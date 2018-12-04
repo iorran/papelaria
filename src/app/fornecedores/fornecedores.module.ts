@@ -5,6 +5,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { FornecedoresPage } from './fornecedores.page';
 import { FornecedorDetailComponent } from './fornecedor-detail/fornecedor-detail.component';
 import { FornecedorListComponent } from './fornecedor-list/fornecedor-list.component';
+import { FornecedorService } from './shared/services/fornecedor.service';
 
 const routes: Routes = [
   { path: '', component: FornecedoresPage },
@@ -17,6 +18,7 @@ const routes: Routes = [
     SharedModule,
     RouterModule.forChild(routes)
   ],
-  declarations: [FornecedoresPage, FornecedorDetailComponent, FornecedorListComponent]
+  declarations: [FornecedoresPage, FornecedorDetailComponent, FornecedorListComponent],
+  providers: [FornecedorService]
 })
 export class FornecedoresPageModule { }

@@ -29,7 +29,7 @@ export class FornecedorListComponent implements OnInit {
 
   private async loadFornecedors() {
     const loading = await this._loadingController.create({
-      message: this._translate.instant('geral.carregando')
+      message: this._translate.instant('geral.aguarde')
     });
 
     await loading.present();

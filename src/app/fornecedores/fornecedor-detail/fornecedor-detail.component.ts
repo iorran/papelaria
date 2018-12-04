@@ -1,9 +1,11 @@
+import { Observable } from 'rxjs';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormGroup, Validators, FormControl } from '@angular/forms';
 import { LoadingController } from '@ionic/angular';
 import { FornecedorService } from './../shared/services/fornecedor.service';
 import { TranslateService } from '@ngx-translate/core';
+import { MessageService } from '../../core/services/message.service';
 
 @Component({
   selector: 'app-fornecedor-detail',
@@ -19,7 +21,8 @@ export class FornecedorDetailComponent implements OnInit {
     private _router: Router,
     private _fornecedorService: FornecedorService,
     private _translate: TranslateService,
-    private _loadingController: LoadingController) { }
+    private _loadingController: LoadingController,
+    private _messageService: MessageService) { }
 
   ngOnInit() {
     this.form = new FormGroup({
@@ -36,7 +39,7 @@ export class FornecedorDetailComponent implements OnInit {
 
   private async loadFornecedores() {
     const loading = await this._loadingController.create({
-      message: this._translate.instant('geral.carregando')
+      message: this._translate.instant('geral.aguarde')
     });
 
     await loading.present();
@@ -59,18 +62,26 @@ export class FornecedorDetailComponent implements OnInit {
       await loading.present();
 
       if (this.param) {
-        this._fornecedorService.update(this.param, fornecedor);
+        await this.subscribeToSave(this._fornecedorService.update(this.param, fornecedor));
       } else {
-        this._fornecedorService.create(fornecedor);
+        await this.subscribeToSave(this._fornecedorService.create(fornecedor));
       }
 
       loading.dismiss();
-
       this.form.reset();
       this.isSubmitted = false;
 
       this._router.navigateByUrl('fornecedores');
     }
+  }
+
+  private subscribeToSave(result: Observable<any>) {
+    result.subscribe(data => {
+      this._messageService.presentToast(this._translate.instant('geral.registro_salvo'), 'success');
+    },
+      err => {
+        this._messageService.presentToast(this._translate.instant('geral.error'), 'error');
+      });
   }
 
   get nome() {

@@ -1,12 +1,10 @@
 import { Produto } from './../models/produto.model';
 import { Injectable } from '@angular/core';
 import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore';
-import { Observable } from 'rxjs';
+import { Observable, from } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class ProdutoService {
   private collection: AngularFirestoreCollection<any>;
 
@@ -33,22 +31,22 @@ export class ProdutoService {
   /**
    * A function to remove one element by id, from a document firebase
    */
-  remove(id: string) {
-    this.collection.doc<Produto>(id).delete();
+  remove(id: string): Observable<any>  {
+    return from(this.collection.doc<Produto>(id).delete());
   }
 
   /**
    * A function to save one product
    */
-  create(produto: Produto) {
-    this.collection.add(produto);
+  create(produto: Produto): Observable<any>  {
+    return from(this.collection.add(produto));
   }
 
   /**
    * A function to update one product
    */
-  update(id: string, produto: Produto) {
-    this.collection.doc<Produto>(id).update(produto);
+  update(id: string, produto: Produto): Observable<any> {
+    return from(this.collection.doc<Produto>(id).update(produto));
   }
 
   documentsToDomainObject = _ => {

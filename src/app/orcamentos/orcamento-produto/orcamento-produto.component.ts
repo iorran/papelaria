@@ -33,7 +33,7 @@ export class OrcamentoProdutoComponent implements OnInit, OnChanges {
 
   async loadOrcamento() {
     const loading = await this._loadingController.create({
-      message: this._translate.instant('geral.carregando')
+      message: this._translate.instant('geral.aguarde')
     });
 
     await loading.present();

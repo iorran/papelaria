@@ -1,13 +1,10 @@
-import { Fornecedor } from './../../../fornecedores/shared/models/fornecedor.model';
 import { Orcamento } from './../models/orcamento.model';
 import { Injectable } from '@angular/core';
 import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore';
-import { Observable } from 'rxjs';
+import { Observable, from } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class OrcamentoService {
   private collection: AngularFirestoreCollection<any>;
 
@@ -35,7 +32,7 @@ export class OrcamentoService {
    * A function to remove one element by id, from a document firebase
    */
   remove(id: string) {
-    return this.collection.doc<Orcamento>(id).delete();
+    return from(this.collection.doc<Orcamento>(id).delete());
   }
 
   /**
@@ -43,14 +40,14 @@ export class OrcamentoService {
    */
   create(orcamento: Orcamento) {
     orcamento.createdAt = new Date();
-    return this.collection.add(orcamento);
+    return from(this.collection.add(orcamento));
   }
 
   /**
    * A function to update one orcamento
    */
   update(id: string, orcamento: Orcamento) {
-    return this.collection.doc<Orcamento>(id).update(orcamento);
+    return from(this.collection.doc<Orcamento>(id).update(orcamento));
   }
 
   /**

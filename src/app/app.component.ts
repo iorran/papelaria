@@ -1,3 +1,4 @@
+import { AngularFireAuth } from 'angularfire2/auth';
 import { Component } from '@angular/core';
 
 import { Platform, MenuController } from '@ionic/angular';
@@ -23,7 +24,8 @@ export class AppComponent {
     private _splashScreen: SplashScreen,
     private _statusBar: StatusBar,
     private _translate: TranslateService,
-    private _menuCtrl: MenuController
+    private _menuCtrl: MenuController,
+    private _firebaseAuth: AngularFireAuth
   ) {
     this.initializeApp();
   }
@@ -31,9 +33,11 @@ export class AppComponent {
   initializeApp() {
     this.initTranslate();
     this._platform.ready().then(() => {
+      this._firebaseAuth.auth.onAuthStateChanged(data => {
+        this._menuCtrl.enable(!!data, 'menuId');
+      });
       this._statusBar.styleDefault();
       this._splashScreen.hide();
-      this._menuCtrl.enable(false, 'menuId');
     });
   }
 

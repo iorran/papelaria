@@ -1,9 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Storage } from '@ionic/storage';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class CacheService {
 
   constructor(private _storage: Storage) { }

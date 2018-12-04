@@ -1,3 +1,5 @@
+import { Observable } from 'rxjs';
+import { MessageService } from './../../core/services/message.service';
 import { Component, OnInit, Input, OnChanges } from '@angular/core';
 import { Produto } from '../../produtos/shared/models/produto.model';
 import { Fornecedor } from '../../fornecedores/shared/models/fornecedor.model';
@@ -5,7 +7,6 @@ import { LoadingController } from '@ionic/angular';
 import { OrcamentoService } from '../shared/services/orcamento.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Orcamento } from '../shared/models/orcamento.model';
-import { ToastService } from '../../core/services/toast.service';
 import { TranslateService } from '@ngx-translate/core';
 
 @Component({
@@ -25,7 +26,7 @@ export class OrcamentoDetailComponent implements OnInit, OnChanges {
   constructor(
     private _orcamentoService: OrcamentoService,
     private _loadingController: LoadingController,
-    private _toastService: ToastService,
+    private _messageService: MessageService,
     private _translate: TranslateService
   ) { }
 
@@ -46,9 +47,8 @@ export class OrcamentoDetailComponent implements OnInit, OnChanges {
   }
 
   async loadOrcamento() {
-
     const loading = await this._loadingController.create({
-      message: this._translate.instant('geral.carregando')
+      message: this._translate.instant('geral.aguarde')
     });
 
     await loading.present();
@@ -59,8 +59,8 @@ export class OrcamentoDetailComponent implements OnInit, OnChanges {
         loading.dismiss();
         this.form.get('fornecedor').setValue(this.fornecedor);
         this.form.get('produto').setValue(this.produto);
-        this.form.get('quantidade').setValue(data[0].quantidade);
-        this.form.get('condicao').setValue(data[0].condicao);
+        this.form.get('quantidade').setValue(data[0].id ? data[0].quantidade : null);
+        this.form.get('condicao').setValue(data[0].id ? data[0].condicao : null);
         this.valor.setValue(data[0].id ? data[0].valor : null);
       });
   }
@@ -77,9 +77,9 @@ export class OrcamentoDetailComponent implements OnInit, OnChanges {
       await loading.present();
 
       if (this.orcamentoId) {
-        await this.update(orcamento);
+        await this.subscribeToSave(this._orcamentoService.update(this.orcamentoId, orcamento));
       } else {
-        await this.create(orcamento);
+        await this.subscribeToSave(this._orcamentoService.create(orcamento));
       }
 
       await loading.dismiss();
@@ -87,22 +87,12 @@ export class OrcamentoDetailComponent implements OnInit, OnChanges {
       this.isSubmitted = false;
     }
   }
-
-  update(orcamento: Orcamento): any {
-    this._orcamentoService.update(this.orcamentoId, orcamento)
-      .then((res) => {
-        this._toastService.presentToast(this._translate.instant('geral.registro_atualizado'), 'success');
-      }).catch((res) => {
-        this._toastService.presentToast(this._translate.instant('geral.error'), 'error');
-      });
-  }
-
-  create(orcamento: Orcamento): any {
-    this._orcamentoService.create(orcamento)
-      .then((res) => {
-        this._toastService.presentToast(this._translate.instant('geral.registro_criado'), 'success');
-      }).catch((res) => {
-        this._toastService.presentToast(this._translate.instant('geral.error'), 'error');
+  private subscribeToSave(result: Observable<any>) {
+    result.subscribe(data => {
+      this._messageService.presentToast(this._translate.instant('geral.registro_salvo'), 'success');
+    },
+      err => {
+        this._messageService.presentToast(this._translate.instant('geral.error'), 'error');
       });
   }
 

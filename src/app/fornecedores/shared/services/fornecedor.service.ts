@@ -1,12 +1,10 @@
 import { Fornecedor } from './../models/fornecedor.model';
 import { Injectable } from '@angular/core';
 import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore';
-import { Observable } from 'rxjs';
+import { Observable, from } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class FornecedorService {
   private collection: AngularFirestoreCollection<any>;
 
@@ -34,21 +32,21 @@ export class FornecedorService {
    * A function to remove one element by id, from a document firebase
    */
   remove(id: string) {
-    this.collection.doc<Fornecedor>(id).delete();
+    return from(this.collection.doc<Fornecedor>(id).delete());
   }
 
   /**
    * A function to save one product
    */
   create(fornecedor: Fornecedor) {
-    this.collection.add(fornecedor);
+    return from(this.collection.add(fornecedor));
   }
 
   /**
    * A function to update one product
    */
   update(id: string, fornecedor: Fornecedor) {
-    this.collection.doc<Fornecedor>(id).update(fornecedor);
+    return from(this.collection.doc<Fornecedor>(id).update(fornecedor));
   }
 
   documentsToDomainObject = _ => {

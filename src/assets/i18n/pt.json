@@ -2,13 +2,11 @@
     "geral" : {
         "novo" : "novo",
         "selecione": "Selecione o registro",
-        "carregando" : "Carregando ...",
-        "salvando" : "Salvando ...",
+        "aguarde" : "Aguarde e confie ...",
         "removendo" : "Deseja remover o registro?",
         "total_registro" : "{{param}} registro(s)",
         "registro_vazio" : "Nenhum registro localizado",
-        "registro_criado" : "Registro criado com sucesso",
-        "registro_atualizado" : "Registro atualizado com sucesso",
+        "registro_salvo" : "Registro salvo com sucesso",
         "registro_removido" : "Registro removido com sucesso",
         "error" : "Algo inesperado ocorreu! Tente novamente.",
         "btn": {
