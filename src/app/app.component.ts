@@ -1,7 +1,6 @@
-import { AngularFireAuth } from 'angularfire2/auth';
 import { Component } from '@angular/core';
 
-import { Platform, Events } from '@ionic/angular';
+import { Platform, MenuController } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { TranslateService } from '@ngx-translate/core';
@@ -11,7 +10,6 @@ import { TranslateService } from '@ngx-translate/core';
   templateUrl: 'app.component.html'
 })
 export class AppComponent {
-  public loggedIn;
 
   public appPages = [
     { title: 'home.titulo', url: '/home', icon: 'home' },
@@ -25,17 +23,17 @@ export class AppComponent {
     private _splashScreen: SplashScreen,
     private _statusBar: StatusBar,
     private _translate: TranslateService,
-    private _firebaseAuth: AngularFireAuth
+    private _menuCtrl: MenuController
   ) {
     this.initializeApp();
   }
 
   initializeApp() {
     this.initTranslate();
-    this._firebaseAuth.auth.onAuthStateChanged(data => this.loggedIn = !!data);
     this._platform.ready().then(() => {
       this._statusBar.styleDefault();
       this._splashScreen.hide();
+      this._menuCtrl.enable(false, 'menuId');
     });
   }
 

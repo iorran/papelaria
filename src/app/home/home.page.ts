@@ -1,4 +1,4 @@
-import { LoadingController } from '@ionic/angular';
+import { LoadingController, MenuController } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
 import { Router } from '@angular/router';
 import { AuthService } from './../core/services/auth.service';
@@ -15,7 +15,8 @@ export class HomePage implements OnInit {
     private _authService: AuthService,
     private _router: Router,
     private _translate: TranslateService,
-    private _loadingController: LoadingController
+    private _loadingController: LoadingController,
+    private _menuCtrl: MenuController
   ) { }
 
   ngOnInit() {
@@ -23,6 +24,7 @@ export class HomePage implements OnInit {
   }
 
   private async load() {
+    this._menuCtrl.enable(true, 'menuId');
     const loading = await this._loadingController.create({
       message: this._translate.instant('geral.carregando')
     });
@@ -34,6 +36,7 @@ export class HomePage implements OnInit {
   }
 
   logout() {
+    this._menuCtrl.enable(false, 'menuId');
     this._authService.logout().then((res) => this._router.navigate(['/']));
   }
 }
