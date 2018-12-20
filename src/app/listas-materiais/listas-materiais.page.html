@@ -3,13 +3,13 @@
     <ion-buttons slot="start">
       <ion-back-button defaultHref="home"></ion-back-button>
     </ion-buttons>
-    <ion-title>{{ 'escolas.titulo' | translate }}</ion-title>
+    <ion-title>{{ 'listas.titulo' | translate }}</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content padding>
 
-  <app-escola-list></app-escola-list>
+  <app-lista-material-list></app-lista-material-list>
 
   <ion-fab vertical="bottom" horizontal="end" slot="fixed">
     <ion-fab-button (click)="add()" color="secondary">

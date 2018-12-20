@@ -23,7 +23,7 @@
       </ion-virtual-scroll>
       <ion-item *ngIf="!produtos || produtos.length == 0">
         <ion-label text-center>{{'geral.registro_vazio' | translate}}
-          <ion-text color="tertiary" [routerDirection]="'produtos'" [routerLink]="'/produtos/add'">{{ 'geral.novo' | translate }}</ion-text>
+          <ion-text color="tertiary" [routerDirection]="'produtos'" [routerLink]="'/produtos/add'">{{ 'geral.novo_registro' | translate }}</ion-text>
         </ion-label>
       </ion-item>
     </ion-list>

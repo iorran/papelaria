@@ -20,7 +20,7 @@
       </ion-item>
       <ion-item *ngIf="!fornecedores || fornecedores.length == 0">
         <ion-label text-center>{{'geral.registro_vazio' | translate}}
-          <ion-text color="tertiary" [routerDirection]="'fornecedores'" [routerLink]="'/fornecedores/add'">{{ 'geral.novo' | translate }}</ion-text>
+          <ion-text color="tertiary" [routerDirection]="'fornecedores'" [routerLink]="'/fornecedores/add'">{{ 'geral.novo_registro' | translate }}</ion-text>
         </ion-label>
       </ion-item>
     </ion-list>

@@ -9,7 +9,11 @@ const routes: Routes = [
   { path: 'produtos', loadChildren: './produtos/produtos.module#ProdutosPageModule', canActivate: [AuthGuard] },
   { path: 'fornecedores', loadChildren: './fornecedores/fornecedores.module#FornecedoresPageModule', canActivate: [AuthGuard] },
   { path: 'orcamentos', loadChildren: './orcamentos/orcamentos.module#OrcamentosPageModule', canActivate: [AuthGuard] },
-  { path: 'escolas', loadChildren: './escolas/escolas.module#EscolasPageModule' }
+  { path: 'escolas', loadChildren: './escolas/escolas.module#EscolasPageModule', canActivate: [AuthGuard] },
+  {
+    path: 'listas-materiais', loadChildren: './listas-materiais/listas-materiais.module#ListasMateriaisPageModule',
+    canActivate: [AuthGuard]
+  }
 ];
 
 @NgModule({

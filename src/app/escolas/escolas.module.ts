@@ -1,26 +1,24 @@
+import { EscolaService } from './shared/services/escola.service';
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
 import { Routes, RouterModule } from '@angular/router';
 
-import { IonicModule } from '@ionic/angular';
-
 import { EscolasPage } from './escolas.page';
+import { EscolaListComponent } from './escola-list/escola-list.component';
+import { SharedModule } from '../shared/shared.module';
+import { EscolaDetailComponent } from './escola-detail/escola-detail.component';
 
 const routes: Routes = [
-  {
-    path: '',
-    component: EscolasPage
-  }
+  { path: '', component: EscolasPage },
+  { path: 'add', component: EscolaDetailComponent },
+  { path: 'edit/:id', component: EscolaDetailComponent }
 ];
 
 @NgModule({
   imports: [
-    CommonModule,
-    FormsModule,
-    IonicModule,
+    SharedModule,
     RouterModule.forChild(routes)
   ],
-  declarations: [EscolasPage]
+  declarations: [EscolasPage, EscolaListComponent, EscolaDetailComponent],
+  providers: [EscolaService]
 })
 export class EscolasPageModule {}

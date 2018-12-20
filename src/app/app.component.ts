@@ -14,9 +14,11 @@ export class AppComponent {
 
   public appPages = [
     { title: 'home.titulo', url: '/home', icon: 'home' },
+    { title: 'orcamentos.titulo', url: '/orcamentos', icon: 'cart' },
+    { title: 'listas.titulo', url: '/listas-materiais', icon: 'list-box' },
     { title: 'produtos.titulo', url: '/produtos', icon: 'pricetag' },
     { title: 'fornecedores.titulo', url: '/fornecedores', icon: 'business' },
-    { title: 'orcamentos.titulo', url: '/orcamentos', icon: 'cart' }
+    { title: 'escolas.titulo', url: '/escolas', icon: 'school' }
   ];
 
   constructor(

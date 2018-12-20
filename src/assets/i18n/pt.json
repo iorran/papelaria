@@ -1,6 +1,6 @@
 {
     "geral" : {
-        "novo" : "novo",
+        "novo_registro" : "Deseja cadastrar?",
         "selecione": "Selecione o registro",
         "aguarde" : "Aguarde e confie ...",
         "removendo" : "Deseja remover o registro?",
@@ -89,5 +89,30 @@
             }
         },
         "melhor": "Melhor preço"
+    },
+    "escolas" : {
+        "titulo" : "Escolas",
+        "titulo.detalhes" : "Detalhes da Escola",
+        "novo": "Nova escola",
+        "lista_produtos": "Lista de materiais",
+        "form": {
+            "nome" : "Nome"
+        },
+        "validacao": {
+            "nome": {
+                "obrigatorio": "O campo nome é obrigatório"
+            }
+        }
+    },
+    "listas" : {
+        "titulo" : "Listas de Materiais",
+        "titulo.detalhes" : "Detalhes da lista de materiais",
+        "novo": "Nova lista", 
+        "form": {
+
+        },
+        "validacao": {
+            
+        }
     }
 }

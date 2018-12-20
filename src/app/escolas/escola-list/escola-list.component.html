@@ -1,0 +1,27 @@
+<ion-searchbar (ionInput)="search($event)" placeholder="Pesquisar" autocorrect="off" animated="true" showCancelButton="true"></ion-searchbar>
+<ion-card>
+  <ion-card-content>
+    <ion-list>
+      <ion-list-header>
+        {{ 'geral.total_registro' | translate:{'param':escolasFiltered?.length} }}
+      </ion-list-header>
+      <ion-item *ngFor="let e of escolasFiltered">
+        <ion-label>
+          <h2>{{e.nome}}</h2>
+        </ion-label>
+
+        <ion-button (click)="edit(e.id)" fill="clear" size="small" slot="end">
+          <ion-icon slot="icon-only" name="open"></ion-icon>
+        </ion-button>
+        <ion-button (click)="remove(e.id)" fill="clear" size="small" color="danger" slot="end">
+          <ion-icon slot="icon-only" name="trash"></ion-icon>
+        </ion-button>
+      </ion-item>
+      <ion-item *ngIf="!escolas || escolas.length == 0">
+        <ion-label text-center>{{'geral.registro_vazio' | translate}}.
+          <ion-text color="tertiary" [routerDirection]="'escolas'" [routerLink]="'/escolas/add'">{{ 'geral.novo_registro' | translate }}</ion-text>
+        </ion-label>
+      </ion-item>
+    </ion-list>
+  </ion-card-content>
+</ion-card>

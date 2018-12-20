@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -6,10 +7,14 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./escolas.page.scss'],
 })
 export class EscolasPage implements OnInit {
-
-  constructor() { }
+  constructor(
+    private _router: Router) {
+  }
 
   ngOnInit() {
   }
 
+  add() {
+    this._router.navigateByUrl('escolas/add');
+  }
 }
